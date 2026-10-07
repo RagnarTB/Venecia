@@ -1,0 +1,2151 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Pizzería Venecia | Reservas y pedidos</title>
+    <meta name="description" content="Reserva tu mesa o pide a domicilio en Pizzería Venecia, Chiclayo.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23C8372D'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFF8EE;
+            --sf: #fff;
+            --s2: #F6E9D7;
+            --tx: #2A1F1B;
+            --mu: #6B5A4E;
+            --pr: #C8372D;
+            --on: #fff;
+            --gr: #2F6B3F;
+            --ln: #8A7767;
+            --l2: #E4D3BC;
+            --er: #B3261E;
+            --sh: 0 10px 30px #2a1f1b1a
+        }
+
+        [data-t=dark] {
+            --bg: #1C1512;
+            --sf: #2E231D;
+            --s2: #3A2D25;
+            --tx: #F5EBDD;
+            --mu: #B8A796;
+            --pr: #E5594D;
+            --on: #1C1512;
+            --gr: #6FBF84;
+            --ln: #8F7E6F;
+            --l2: #4A3B31;
+            --er: #F2877F;
+            --sh: 0 10px 30px #0008
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        body {
+            font: 16px/1.55 Inter, system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--tx);
+            transition: background .3s, color .3s;
+            padding-bottom: 72px
+        }
+
+        h1,
+        h2,
+        .logo {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700
+        }
+
+        h1 {
+            font-size: clamp(30px, 5vw, 46px);
+            line-height: 1.12;
+            margin-bottom: 8px
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 40px 0 16px
+        }
+
+        h3 {
+            font-size: 17px
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        .mu {
+            color: var(--mu)
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 16px
+        }
+
+        .nar {
+            max-width: 440px;
+            margin: 24px auto
+        }
+
+        .mid {
+            max-width: 720px;
+            margin: auto
+        }
+
+        .ctr {
+            text-align: center
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--pr);
+            outline-offset: 2px
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 9;
+            background: color-mix(in srgb, var(--sf) 92%, transparent);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--l2)
+        }
+
+        .ni {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            gap: 16px
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 22px;
+            color: var(--pr);
+            margin-right: auto
+        }
+
+        .links {
+            display: none;
+            gap: 4px
+        }
+
+        .links a {
+            padding: 8px 14px;
+            border-radius: 99px;
+            font-weight: 500
+        }
+
+        .links a.on {
+            color: var(--pr);
+            font-weight: 600;
+            background: var(--s2)
+        }
+
+        .nr {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .btn {
+            min-height: 48px;
+            padding: 0 24px;
+            border: 2px solid var(--pr);
+            border-radius: 99px;
+            background: var(--pr);
+            color: var(--on);
+            font: 600 16px Inter;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform .15s, filter .2s
+        }
+
+        .btn:hover {
+            filter: brightness(1.08)
+        }
+
+        .btn:active {
+            transform: scale(.97)
+        }
+
+        .btn.s {
+            background: none;
+            color: var(--pr)
+        }
+
+        .btn.sm {
+            min-height: 44px;
+            padding: 0 18px
+        }
+
+        .btn.w {
+            width: 100%
+        }
+
+        .btn[disabled] {
+            opacity: .45;
+            pointer-events: none
+        }
+
+        .ic {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border: 0;
+            border-radius: 50%;
+            background: var(--s2);
+            font-size: 18px;
+            cursor: pointer
+        }
+
+        .badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            background: var(--pr);
+            color: var(--on);
+            font: 700 12px/20px Inter;
+            font-style: normal;
+            text-align: center
+        }
+
+        .bump {
+            animation: bump .4s
+        }
+
+        @keyframes bump {
+            50% {
+                transform: scale(1.5)
+            }
+        }
+
+        .bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: var(--sf);
+            border-top: 1px solid var(--l2);
+            display: flex;
+            z-index: 9;
+            padding-bottom: env(safe-area-inset-bottom)
+        }
+
+        .bar a {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--mu);
+            align-content: center
+        }
+
+        .bar a.on {
+            color: var(--pr);
+            font-weight: 700
+        }
+
+        .bar span {
+            font-size: 20px
+        }
+
+        .hero {
+            position: relative;
+            margin-top: 24px;
+            padding: 32px 24px;
+            border-radius: 28px;
+            background: var(--s2);
+            display: grid;
+            gap: 16px;
+            overflow: hidden
+        }
+
+        .hero .pz {
+            width: min(60vw, 300px);
+            margin: auto;
+            animation: spin 1.4s cubic-bezier(.2, .8, .2, 1) both
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(-200deg) scale(.4);
+                opacity: 0
+            }
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center
+        }
+
+        .sp {
+            justify-content: space-between
+        }
+
+        .g {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
+        }
+
+        .card {
+            background: var(--sf);
+            border: 1px solid var(--l2);
+            border-radius: 16px;
+            padding: 12px;
+            transition: border-color .2s
+        }
+
+        .card:hover {
+            border-color: var(--pr)
+        }
+
+        .img {
+            height: 150px;
+            border-radius: 12px;
+            background: var(--s2);
+            display: grid;
+            place-items: center;
+            font-size: 56px;
+            margin-bottom: 12px
+        }
+
+        .img svg {
+            width: 110px
+        }
+
+        .card h3,
+        .card p {
+            padding: 0 4px
+        }
+
+        .card .row {
+            padding: 8px 4px 0
+        }
+
+        .price {
+            font-size: 18px;
+            color: var(--pr)
+        }
+
+        .add {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--pr);
+            background: none;
+            color: var(--pr);
+            font: 600 24px/1 Inter;
+            cursor: pointer;
+            transition: .15s
+        }
+
+        .add:hover {
+            background: var(--pr);
+            color: var(--on)
+        }
+
+        .add:active {
+            transform: scale(.9)
+        }
+
+        .chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 16px 0
+        }
+
+        .chip {
+            min-height: 44px;
+            padding: 0 20px;
+            border-radius: 22px;
+            border: 1.5px solid var(--ln);
+            background: var(--sf);
+            color: var(--tx);
+            font: 500 15px Inter;
+            cursor: pointer
+        }
+
+        .chip.on {
+            background: var(--pr);
+            border-color: var(--pr);
+            color: var(--on);
+            font-weight: 600
+        }
+
+        .chip[disabled] {
+            opacity: .4;
+            text-decoration: line-through;
+            cursor: not-allowed
+        }
+
+        label {
+            display: block;
+            font: 600 13px Inter;
+            margin: 16px 0 6px
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 16px;
+            border: 1.5px solid var(--ln);
+            border-radius: 12px;
+            background: var(--sf);
+            color: var(--tx);
+            font: 16px Inter
+        }
+
+        textarea {
+            min-height: 96px
+        }
+
+        input[aria-invalid=true] {
+            border-color: var(--er)
+        }
+
+        .err {
+            color: var(--er);
+            font-size: 13px;
+            font-weight: 500;
+            display: block;
+            min-height: 0
+        }
+
+        .lk {
+            color: var(--pr);
+            font-weight: 600;
+            cursor: pointer;
+            background: none;
+            border: 0;
+            font-size: 14px;
+            padding: 10px
+        }
+
+        .box {
+            background: var(--sf);
+            border: 1px solid var(--l2);
+            border-radius: 16px;
+            padding: 20px
+        }
+
+        .sm2 div {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0
+        }
+
+        .tot {
+            border-top: 1px solid var(--l2);
+            margin-top: 8px;
+            padding-top: 12px !important;
+            font-weight: 700;
+            font-size: 20px
+        }
+
+        .tot b {
+            color: var(--pr)
+        }
+
+        .cal {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin: 12px 0
+        }
+
+        .cal b {
+            text-align: center;
+            font-size: 13px;
+            color: var(--mu)
+        }
+
+        .d {
+            aspect-ratio: 1;
+            min-height: 44px;
+            border: 1.5px solid var(--l2);
+            border-radius: 10px;
+            background: var(--sf);
+            color: var(--tx);
+            font: 500 15px Inter;
+            cursor: pointer
+        }
+
+        .d.on {
+            background: var(--pr);
+            color: var(--on);
+            border-color: var(--pr);
+            font-weight: 700;
+            animation: pop .25s
+        }
+
+        .d[disabled] {
+            opacity: .4;
+            cursor: default
+        }
+
+        @keyframes pop {
+            50% {
+                transform: scale(1.12)
+            }
+        }
+
+        .qty {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .qty button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid var(--pr);
+            background: none;
+            color: var(--pr);
+            font: 600 22px Inter;
+            cursor: pointer
+        }
+
+        .qty b {
+            min-width: 24px;
+            text-align: center;
+            font-size: 20px
+        }
+
+        .it {
+            display: grid;
+            grid-template-columns: 56px 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--l2)
+        }
+
+        .it .im {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: var(--s2);
+            display: grid;
+            place-items: center;
+            font-size: 26px
+        }
+
+        .it svg {
+            width: 40px
+        }
+
+        .kp {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))
+        }
+
+        .kp div {
+            padding: 20px;
+            border-radius: 16px;
+            background: var(--sf);
+            border: 1px solid var(--l2)
+        }
+
+        .kp b {
+            display: block;
+            font: 700 30px 'Playfair Display';
+            color: var(--pr)
+        }
+
+        .map {
+            height: 160px;
+            border-radius: 16px;
+            background: var(--s2) repeating-linear-gradient(90deg, transparent 0 78px, var(--sf) 78px 84px), repeating-linear-gradient(0deg, transparent 0 58px, var(--sf) 58px 64px);
+            position: relative;
+            margin: 16px 0
+        }
+
+        .map:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 26px;
+            height: 26px;
+            margin: -13px;
+            border-radius: 50%;
+            background: var(--pr);
+            border: 8px solid var(--on);
+            box-shadow: 0 0 0 6px #c8372d44
+        }
+
+        .stp {
+            display: flex;
+            margin: 24px 0 8px
+        }
+
+        .stp div {
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
+            color: var(--mu);
+            position: relative
+        }
+
+        .stp div:before {
+            content: '';
+            display: block;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--l2);
+            margin: 0 auto 8px;
+            position: relative;
+            z-index: 1;
+            transition: .5s
+        }
+
+        .stp div:after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: -50%;
+            width: 100%;
+            height: 3px;
+            background: var(--l2);
+            transition: .5s
+        }
+
+        .stp div:first-child:after {
+            display: none
+        }
+
+        .stp .dn:before,
+        .stp .dn:after {
+            background: var(--gr)
+        }
+
+        .stp .ac:before {
+            background: var(--pr);
+            box-shadow: 0 0 0 6px #c8372d33
+        }
+
+        .stp .ac:after {
+            background: var(--gr)
+        }
+
+        .stp .dn,
+        .stp .ac {
+            color: var(--tx);
+            font-weight: 600
+        }
+
+        .ok svg {
+            width: 96px;
+            display: block;
+            margin: 16px auto
+        }
+
+        .ok path {
+            stroke-dasharray: 60;
+            stroke-dashoffset: 60;
+            animation: dr .6s .2s forwards
+        }
+
+        @keyframes dr {
+            to {
+                stroke-dashoffset: 0
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 520px
+        }
+
+        th {
+            text-align: left;
+            color: var(--mu);
+            font-weight: 600
+        }
+
+        th,
+        td {
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--l2)
+        }
+
+        .tw {
+            overflow-x: auto
+        }
+
+        .tg {
+            font-weight: 700;
+            color: var(--pr)
+        }
+
+        .tg.z {
+            color: var(--gr)
+        }
+
+        #toast {
+            position: fixed;
+            left: 50%;
+            bottom: 84px;
+            transform: translate(-50%, 20px);
+            background: var(--tx);
+            color: var(--bg);
+            padding: 12px 20px;
+            border-radius: 12px;
+            opacity: 0;
+            transition: .3s;
+            z-index: 20;
+            pointer-events: none;
+            max-width: 90vw;
+            text-align: center
+        }
+
+        #toast.on {
+            opacity: 1;
+            transform: translate(-50%, 0)
+        }
+
+        footer {
+            margin-top: 56px;
+            padding: 32px 0;
+            border-top: 1px solid var(--l2);
+            color: var(--mu);
+            font-size: 14px
+        }
+
+        footer .g {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+        }
+
+        @media(min-width:768px) {
+            body {
+                padding-bottom: 0
+            }
+
+            .bar {
+                display: none
+            }
+
+            .links {
+                display: flex
+            }
+
+            .hero {
+                grid-template-columns: 1.1fr 1fr;
+                align-items: center;
+                padding: 56px
+            }
+
+            .hide-m {
+                display: inline-flex
+            }
+
+            #toast {
+                bottom: 24px
+            }
+        }
+
+        @media(max-width:767px) {
+            .hide-m {
+                display: none
+            }
+        }
+
+        @media(max-width:560px) {
+            .g {
+                grid-template-columns: 1fr
+            }
+
+            .card {
+                display: grid;
+                grid-template-columns: 88px 1fr;
+                column-gap: 12px;
+                align-items: center
+            }
+
+            .card .img {
+                grid-row: span 3;
+                height: 88px;
+                margin: 0;
+                font-size: 36px
+            }
+
+            .card .img svg {
+                width: 64px
+            }
+
+            .card .row {
+                grid-column: 2
+            }
+        }
+
+        .chip.sm3 {
+            padding: 0 14px;
+            font-size: 13px
+        }
+
+        .card .chips {
+            grid-column: 2
+        }
+
+        .banner {
+            background: var(--pr);
+            color: var(--on);
+            text-align: center;
+            padding: 10px 16px;
+            font-weight: 600;
+            font-size: 14px
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 99px;
+            background: var(--s2);
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .bar2 {
+            display: grid;
+            grid-template-columns: 130px 1fr 36px;
+            gap: 12px;
+            align-items: center;
+            margin: 8px 0
+        }
+
+        .bar2 i {
+            display: block;
+            height: 14px;
+            border-radius: 7px;
+            background: var(--pr);
+            transition: width .6s
+        }
+
+        .bar2 b {
+            text-align: right
+        }
+
+        input[type=search] {
+            -webkit-appearance: none
+        }
+
+        .i {
+            vertical-align: -.2em;
+            flex: none
+        }
+
+        .ic,
+        .ic .i {
+            color: var(--tx)
+        }
+
+        .ib {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--s2);
+            color: var(--pr);
+            display: grid;
+            place-items: center;
+            margin-bottom: 12px
+        }
+
+        .img {
+            color: var(--pr)
+        }
+
+        .img svg.i {
+            width: 56px;
+            height: 56px
+        }
+
+        .card .img svg.i {
+            width: 48px;
+            height: 48px
+        }
+
+        .it .i {
+            width: 28px;
+            height: 28px;
+            color: var(--pr)
+        }
+
+        .bar span {
+            display: grid;
+            place-items: center
+        }
+
+        .bar .i {
+            width: 22px;
+            height: 22px
+        }
+
+        .fq {
+            border-bottom: 1px solid var(--l2);
+            padding: 14px 0
+        }
+
+        .fq summary {
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .fq summary::-webkit-details-marker {
+            display: none
+        }
+
+        .fq summary:after {
+            content: '+';
+            color: var(--pr);
+            font-size: 22px;
+            line-height: 1
+        }
+
+        .fq[open] summary:after {
+            content: '−'
+        }
+
+        .fq p {
+            margin-top: 8px
+        }
+
+        .ol {
+            padding-left: 22px
+        }
+
+        .ol li {
+            margin: 8px 0
+        }
+
+        main:focus {
+            outline: 0
+        }
+
+        footer p {
+            margin-top: 6px;
+            line-height: 1.9
+        }
+
+        footer a:hover {
+            color: var(--pr)
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            * {
+                animation: none !important;
+                transition: none !important
+            }
+        }
+
+        /* ===== Módulo 4: capa de producto / interfaz profesional ===== */
+        :root {
+            --ok: #1D6E45;
+            --warn: #8A5A00;
+            --info: #155C84;
+            --danger: #A62A22;
+            --r1: 12px;
+            --r2: 18px;
+            --r3: 26px;
+            --ring: 0 0 0 4px color-mix(in srgb, var(--pr) 18%, transparent)
+        }
+
+        .skip {
+            position: fixed;
+            left: 16px;
+            top: -80px;
+            z-index: 100;
+            background: var(--tx);
+            color: var(--bg);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: .2s
+        }
+
+        .skip:focus {
+            top: 12px
+        }
+
+        body {
+            min-height: 100vh
+        }
+
+        .wrap {
+            width: min(100% - 32px, 1200px)
+        }
+
+        .nav {
+            box-shadow: 0 1px 0 color-mix(in srgb, var(--l2) 70%, transparent)
+        }
+
+        .ni {
+            height: 72px
+        }
+
+        .logo {
+            letter-spacing: -.02em
+        }
+
+        .logo .pz {
+            width: 30px;
+            height: 30px
+        }
+
+        .links a {
+            transition: .2s
+        }
+
+        .links a:hover {
+            background: var(--s2)
+        }
+
+        .btn {
+            box-shadow: 0 6px 16px color-mix(in srgb, var(--pr) 15%, transparent)
+        }
+
+        .btn.s {
+            box-shadow: none
+        }
+
+        .btn:focus-visible,
+        .chip:focus-visible,
+        .ic:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            box-shadow: var(--ring)
+        }
+
+        .ic {
+            display: grid;
+            place-items: center;
+            border: 1px solid transparent
+        }
+
+        .ic:hover {
+            border-color: var(--l2)
+        }
+
+        main.wrap {
+            min-height: 58vh;
+            padding-bottom: 24px
+        }
+
+        .page-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+            margin: 30px 0 20px
+        }
+
+        .page-head h1 {
+            margin: 0
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--pr);
+            margin-bottom: 8px
+        }
+
+        .eyebrow svg {
+            width: 15px;
+            height: 15px
+        }
+
+        .hero.pro {
+            padding: clamp(28px, 5vw, 64px);
+            min-height: 440px;
+            background: linear-gradient(135deg, var(--s2), color-mix(in srgb, var(--sf) 35%, var(--s2)));
+            border: 1px solid var(--l2);
+            box-shadow: var(--sh)
+        }
+
+        .hero-copy {
+            max-width: 610px
+        }
+
+        .hero.pro h1 {
+            font-size: clamp(38px, 6vw, 64px);
+            letter-spacing: -.035em
+        }
+
+        .hero.pro .lead {
+            font-size: clamp(16px, 2vw, 19px);
+            max-width: 580px;
+            margin: 14px 0 26px
+        }
+
+        .hero-art {
+            display: grid;
+            place-items: center;
+            position: relative
+        }
+
+        .hero-art:before,
+        .hero-art:after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid color-mix(in srgb, var(--pr) 25%, transparent)
+        }
+
+        .hero-art:before {
+            width: 340px;
+            height: 340px
+        }
+
+        .hero-art:after {
+            width: 270px;
+            height: 270px
+        }
+
+        .hero-art .pz {
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 24px 28px #2a1f1b2d)
+        }
+
+        .statusline {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 18px 0 0
+        }
+
+        .status-pill,
+        .meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            min-height: 34px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: var(--sf);
+            border: 1px solid var(--l2);
+            font-size: 13px;
+            font-weight: 700
+        }
+
+        .status-pill i {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gr)
+        }
+
+        .status-pill.off i {
+            background: var(--er)
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 18px;
+            margin: 42px 0 16px
+        }
+
+        .section-head h2 {
+            margin: 0
+        }
+
+        .section-head p {
+            max-width: 560px
+        }
+
+        .section-head a {
+            white-space: nowrap
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px
+        }
+
+        .feature {
+            background: var(--sf);
+            border: 1px solid var(--l2);
+            border-radius: var(--r2);
+            padding: 22px;
+            min-height: 170px
+        }
+
+        .feature .ib {
+            margin: 0 0 16px
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 6px
+        }
+
+        .feature p {
+            font-size: 14px
+        }
+
+        .process {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            counter-reset: steps
+        }
+
+        .process .box {
+            position: relative;
+            padding: 24px 22px 22px 70px
+        }
+
+        .process .box:before {
+            counter-increment: steps;
+            content: counter(steps);
+            position: absolute;
+            left: 20px;
+            top: 22px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--pr);
+            color: var(--on);
+            font-weight: 800
+        }
+
+        .process .box h3 {
+            margin-bottom: 5px
+        }
+
+        .card {
+            border-radius: var(--r2);
+            padding: 14px;
+            box-shadow: 0 8px 26px transparent
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 30px color-mix(in srgb, var(--tx) 8%, transparent);
+            transform: translateY(-1px)
+        }
+
+        .card .img {
+            height: 165px;
+            border-radius: 14px
+        }
+
+        .price {
+            font-size: 19px
+        }
+
+        .add {
+            display: grid;
+            place-items: center
+        }
+
+        .searchbox {
+            position: relative;
+            max-width: 620px;
+            margin-top: 18px
+        }
+
+        .searchbox svg {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--mu)
+        }
+
+        .searchbox input {
+            padding-left: 46px
+        }
+
+        .notice {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            border: 1px solid var(--l2);
+            background: var(--sf);
+            border-radius: var(--r1);
+            padding: 14px 16px;
+            margin: 14px 0
+        }
+
+        .notice .ni2 {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            background: var(--s2);
+            color: var(--pr);
+            flex: none
+        }
+
+        .notice b {
+            display: block;
+            margin-bottom: 2px
+        }
+
+        .notice p {
+            font-size: 14px;
+            color: var(--mu)
+        }
+
+        .notice.ok {
+            border-color: color-mix(in srgb, var(--ok) 30%, var(--l2))
+        }
+
+        .notice.warn {
+            border-color: color-mix(in srgb, var(--warn) 32%, var(--l2))
+        }
+
+        .notice.danger {
+            border-color: color-mix(in srgb, var(--danger) 32%, var(--l2))
+        }
+
+        .flow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 18px 0 24px
+        }
+
+        .flow div {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--mu);
+            font-size: 13px;
+            font-weight: 700
+        }
+
+        .flow div:before {
+            content: '';
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--l2);
+            flex: none
+        }
+
+        .flow div.on {
+            color: var(--tx)
+        }
+
+        .flow div.on:before {
+            background: var(--pr);
+            box-shadow: inset 0 0 0 8px var(--pr)
+        }
+
+        .flow div.done:before {
+            background: var(--gr)
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(290px, .65fr);
+            gap: 22px;
+            align-items: start
+        }
+
+        .sticky {
+            position: sticky;
+            top: 92px
+        }
+
+        .summary-card {
+            background: var(--sf);
+            border: 1px solid var(--l2);
+            border-radius: var(--r2);
+            padding: 20px
+        }
+
+        .summary-card h3 {
+            margin-bottom: 14px
+        }
+
+        .summary-card .sm2 {
+            margin: 0
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 12px 0
+        }
+
+        .method {
+            min-height: 74px;
+            border: 1.5px solid var(--l2);
+            border-radius: 14px;
+            background: var(--sf);
+            color: var(--tx);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 12px;
+            cursor: pointer;
+            font: 600 14px Inter
+        }
+
+        .method.on {
+            border-color: var(--pr);
+            box-shadow: var(--ring)
+        }
+
+        .method small {
+            font-weight: 500;
+            color: var(--mu);
+            margin-top: 3px
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin: 20px 0
+        }
+
+        .metric {
+            background: var(--sf);
+            border: 1px solid var(--l2);
+            border-radius: var(--r2);
+            padding: 20px
+        }
+
+        .metric .m-label {
+            font-size: 13px;
+            color: var(--mu);
+            font-weight: 700
+        }
+
+        .metric b {
+            display: block;
+            font: 700 clamp(24px, 3vw, 34px) 'Playfair Display';
+            margin: 3px 0
+        }
+
+        .metric small {
+            color: var(--mu)
+        }
+
+        .panel-shell {
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr);
+            gap: 22px;
+            align-items: start
+        }
+
+        .panel-side {
+            position: sticky;
+            top: 92px;
+            background: var(--sf);
+            border: 1px solid var(--l2);
+            border-radius: var(--r2);
+            padding: 10px
+        }
+
+        .panel-side button {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: var(--tx);
+            min-height: 46px;
+            border-radius: 10px;
+            text-align: left;
+            padding: 0 12px;
+            font: 600 14px Inter;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 9px
+        }
+
+        .panel-side button.on {
+            background: var(--s2);
+            color: var(--pr)
+        }
+
+        .panel-side button:hover {
+            background: var(--s2)
+        }
+
+        .table-card {
+            background: var(--sf);
+            border: 1px solid var(--l2);
+            border-radius: var(--r2);
+            overflow: hidden
+        }
+
+        .table-card .tw {
+            padding: 0 14px
+        }
+
+        .table-toolbar {
+            padding: 16px;
+            border-bottom: 1px solid var(--l2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .table-toolbar h3 {
+            font-size: 16px
+        }
+
+        .state {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            background: var(--s2)
+        }
+
+        .state:before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor
+        }
+
+        .state.good {
+            color: var(--ok)
+        }
+
+        .state.warn {
+            color: var(--warn)
+        }
+
+        .state.bad {
+            color: var(--danger)
+        }
+
+        .state.info {
+            color: var(--info)
+        }
+
+        .account-head {
+            background: var(--sf);
+            border: 1px solid var(--l2);
+            border-radius: var(--r2);
+            padding: 22px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            margin: 24px 0 14px
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--s2);
+            color: var(--pr)
+        }
+
+        .timeline {
+            position: relative;
+            margin: 22px 0;
+            padding-left: 34px
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 6px;
+            bottom: 8px;
+            width: 2px;
+            background: var(--l2)
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 0 0 22px
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--l2);
+            box-shadow: 0 0 0 4px var(--sf)
+        }
+
+        .timeline-item.done:before {
+            background: var(--gr)
+        }
+
+        .timeline-item.on:before {
+            background: var(--pr)
+        }
+
+        .timeline-item b {
+            display: block
+        }
+
+        .timeline-item span {
+            font-size: 13px;
+            color: var(--mu)
+        }
+
+        .dialog-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background: #0008;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            animation: fade .18s
+        }
+
+        .dialog {
+            width: min(100%, 470px);
+            background: var(--sf);
+            color: var(--tx);
+            border: 1px solid var(--l2);
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: 0 28px 80px #0005
+        }
+
+        .dialog-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: var(--s2);
+            color: var(--pr);
+            margin-bottom: 14px
+        }
+
+        .dialog h2 {
+            font-family: Inter;
+            margin: 0 0 8px;
+            font-size: 20px
+        }
+
+        .dialog p {
+            color: var(--mu)
+        }
+
+        .dialog-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 22px
+        }
+
+        .dialog-actions .btn {
+            min-height: 44px
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0
+            }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, var(--s2), var(--sf), var(--s2));
+            background-size: 200% 100%;
+            animation: sk 1.4s infinite
+        }
+
+        @keyframes sk {
+            to {
+                background-position: -200% 0
+            }
+        }
+
+        footer {
+            background: color-mix(in srgb, var(--sf) 48%, transparent);
+            margin-top: 62px
+        }
+
+        @media(max-width:980px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .metric-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .panel-shell {
+                grid-template-columns: 1fr
+            }
+
+            .panel-side {
+                position: static;
+                display: flex;
+                overflow: auto
+            }
+
+            .panel-side button {
+                width: auto;
+                min-width: max-content
+            }
+
+            .checkout-grid {
+                grid-template-columns: 1fr
+            }
+
+            .sticky {
+                position: static
+            }
+        }
+
+        @media(max-width:767px) {
+            .ni {
+                height: 64px
+            }
+
+            .wrap {
+                width: min(100% - 24px, 1200px)
+            }
+
+            main.wrap {
+                padding-top: 0
+            }
+
+            .hero.pro {
+                margin-top: 14px;
+                min-height: 0;
+                padding: 26px 20px
+            }
+
+            .hero-art {
+                order: -1
+            }
+
+            .hero-art:before {
+                width: 220px;
+                height: 220px
+            }
+
+            .hero-art:after {
+                width: 170px;
+                height: 170px
+            }
+
+            .hero.pro .pz {
+                width: 180px !important
+            }
+
+            .hero.pro h1 {
+                font-size: 36px
+            }
+
+            .hero .row .btn {
+                flex: 1;
+                min-width: 145px
+            }
+
+            .page-head {
+                margin-top: 22px
+            }
+
+            .feature-grid,
+            .process {
+                grid-template-columns: 1fr
+            }
+
+            .metric-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .method-grid {
+                grid-template-columns: 1fr
+            }
+
+            .flow {
+                font-size: 12px
+            }
+
+            .card {
+                grid-template-columns: 96px 1fr
+            }
+
+            .card .img {
+                height: 96px
+            }
+
+            .table-toolbar {
+                align-items: flex-start
+            }
+
+            .account-head {
+                align-items: flex-start
+            }
+
+            .section-head {
+                align-items: flex-start;
+                flex-direction: column
+            }
+
+            .bar {
+                height: 70px
+            }
+
+            .bar a {
+                font-size: 11px
+            }
+        }
+
+        @media(max-width:430px) {
+            .metric-grid {
+                grid-template-columns: 1fr
+            }
+
+            .flow {
+                grid-template-columns: 1fr;
+                gap: 6px
+            }
+
+            .flow div:before {
+                width: 20px;
+                height: 20px
+            }
+
+            .hero .row {
+                display: grid;
+                grid-template-columns: 1fr
+            }
+
+            .hero .row .btn {
+                width: 100%
+            }
+
+            .nr {
+                gap: 5px
+            }
+
+            .nr .ic {
+                width: 40px;
+                height: 40px
+            }
+
+            .btn.sm {
+                padding: 0 13px
+            }
+
+            .account-head {
+                display: block
+            }
+
+            .avatar {
+                margin-bottom: 12px
+            }
+        }
+    </style>
+</head>
+
+<body><a class="skip" href="#main">Saltar al contenido</a>
+    <div id="app"></div>
+    <div id="modalRoot"></div>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script>
+        const IP = {home: '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>', pizza: '<path d="M12 21L4 6a14 14 0 0 1 16 0z"/><circle cx="10" cy="9" r="1"/><circle cx="14" cy="10" r="1"/><circle cx="12" cy="14" r="1"/>', calendar: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/>', cart: '<circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l3 12h11l2-8H6"/>', user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>', moon: '<path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/>', sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>', utensils: '<path d="M7 2v9M4 2v5a3 3 0 0 0 6 0V2M7 11v11M17 2c-2 2-3 5-3 8h3v12"/>', truck: '<path d="M1 6h13v10H1zM14 9h4l3 3v4h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>', bowl: '<path d="M3 11h18a9 9 0 0 1-18 0zM8 8c0-2 2-2 2-4M13 8c0-2 2-2 2-4"/>', cup: '<path d="M6 3h12l-1.5 18h-9zM7 9h10"/>', cake: '<path d="M4 20h16v-7H4zM4 13c2 2 4 2 8 0s6-2 8 0M12 8v3M12 4v1"/>', lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>', chef: '<path d="M6 13a4 4 0 0 1 1-7.8 5 5 0 0 1 10 0A4 4 0 0 1 18 13v8H6zM6 17h12"/>', ban: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>', star: '<path d="M12 2l3 7 7 .6-5.3 4.7 1.6 7.2L12 17.8 5.7 21.5l1.6-7.2L2 9.6 9 9z" fill="currentColor"/>', chevL: '<path d="M15 18l-6-6 6-6"/>', chevR: '<path d="M9 18l6-6-6-6"/>', pin: '<path d="M12 21s7-6 7-12a7 7 0 0 0-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>', clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>', shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>', tag: '<path d="M3 12V3h9l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1"/>'}, ic = (n, s = 22) => `<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IP[n]}</svg>`;
+        const $ = s => document.querySelector(s), L = (k, d) => {try {return JSON.parse(localStorage.getItem(k)) ?? d} catch {return d} }, esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])), $$ = s => [...document.querySelectorAll(s)];
+        const now = Date.now(), seed = [{id: 'P1041', name: 'Carlos M.', tel: '955111222', items: [{id: 'p', q: 2}], total: 77, addr: 'Av. Balta 365', ref: '', pay: 'Yape', st: 2, ts: now}, {id: 'P1040', name: 'Lucía R.', tel: '955333444', items: [{id: 'a', q: 1}], total: 39, addr: 'Calle Lora y Cordero 120', ref: '', pay: 'Efectivo', st: 3, ts: now}];
+        let S = {users: L('v_users', [{n: 'Pizzería Venecia', c: '900000000', m: '', p: 'admin123', admin: 1}]), me: L('v_me', null), cart: L('v_cart', []), orders: L('v_orders', seed), res: L('v_res', []), th: L('v_th', matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'), cat: 'Pizzas', rc: 0, guest: 0, rv: null};
+        const save = () => {try {['users', 'me', 'cart', 'orders', 'res', 'th', 'cfg', 'log', 'nt'].forEach(k => localStorage.setItem('v_' + k, JSON.stringify(S[k])))} catch { } };
+        const P = [['m', 'Margarita', 'Tomate, mozzarella y albahaca', 32, 'Pizzas'], ['p', 'Pepperoni', 'Pepperoni y mozzarella', 36, 'Pizzas'], ['h', 'Hawaiana', 'Jamón y piña', 35, 'Pizzas'], ['q', 'Cuatro Quesos', 'Cuatro tipos de queso', 39, 'Pizzas'], ['a', 'Lasaña', 'Carne y bechamel', 39, 'Pastas'], ['f', 'Fettuccine Alfredo', 'Crema y parmesano', 33, 'Pastas'], ['g', 'Gaseosa 1.5 L', 'Inca Kola o Coca-Cola', 9, 'Bebidas'], ['t', 'Tiramisú', 'Receta italiana', 16, 'Postres']].map(([id, n, d, p, c]) => ({id, n, d, p, c}));
+        const pr = id => P.find(x => x.id === id), money = v => 'S/ ' + v.toFixed(2), EST = ['Recibido', 'Preparando', 'En camino', 'Entregado'], ETA = ['30 a 40 min', '20 a 30 min', '10 a 15 min', 'Entregado'], DLV = 5;
+        const pz = (w = 26) => {let s = `<svg class="pz" width="${w}" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#D9A25B"/><circle cx="50" cy="50" r="42" fill="#E8553E"/><circle cx="50" cy="50" r="38" fill="#F4D06F"/>`; for (let i = 0; i < 7; i++) {const a = i * 6.283 / 7; s += `<circle cx="${50 + 24 * Math.cos(a)}" cy="${50 + 24 * Math.sin(a)}" r="6.5" fill="#A3281F"/>`} for (let i = 0; i < 5; i++) {const a = i * 1.2566 + .4; s += `<ellipse cx="${50 + 12 * Math.cos(a)}" cy="${50 + 12 * Math.sin(a)}" rx="4" ry="2" fill="#3E7D4C"/>`} return s + '</svg>'};
+        const art = p => p.c === 'Pizzas' ? pz(110) : ic({Pastas: 'bowl', Bebidas: 'cup', Postres: 'cake'}[p.c], 56);
+        const qty = () => S.cart.reduce((a, i) => a + i.q, 0), sub = () => S.cart.reduce((a, i) => a + i.q * up(i), 0);
+        const go = h => {location.hash = '/' + h}, v = id => ($('#' + id)?.value || '').trim(), toast = m => {const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 2800)};
+        const fld = (id, lb, ph = '', ty = 'text', val = '') => `<label for="${id}">${lb}</label><input id="${id}" type="${ty}" placeholder="${ph}" value="${esc(val)}" autocomplete="off"><small class="err" id="e_${id}" role="alert"></small>`;
+        const bad = (id, m) => {const i = $('#' + id); i.setAttribute('aria-invalid', 'true'); $('#e_' + id).textContent = m; i.focus(); return 1};
+        const clr = () => {$$('input[aria-invalid]').forEach(i => i.removeAttribute('aria-invalid')); $$('.err').forEach(e => e.textContent = '')};
+        let card = p => `<article class="card"><div class="img">${art(p)}</div><h3>${p.n}</h3><p class="mu" style="font-size:14px">${p.d}</p><div class="row sp"><b class="price">${money(p.p)}</b><button class="add" data-a="add" data-id="${p.id}" aria-label="Agregar ${p.n} al carrito">+</button></div></article>`;
+        const sum = (rows, tot) => `<div class="box sm2">${rows.map(([a, b]) => `<div><span class="mu">${a}</span><span>${b}</span></div>`).join('')}${tot ? `<div class="tot"><span>Total</span><b>${tot}</b></div>` : ''}</div>`;
+        const MES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], HRS = ['12:00', '12:30', '13:00', '13:30', '14:00', '19:00', '19:30', '20:00', '20:30', '21:00'];
+        const steps = st => `<div class="stp" role="list">${EST.map((e, i) => `<div role="listitem" class="${i < st ? 'dn' : i == st ? 'ac' : ''}">${e}</div>`).join('')}</div>`;
+        const R = {
+            '': () => `<section class="hero"><div><h1>Pizza de verdad,<br>sin esperas</h1><p class="mu" style="margin-bottom:24px;max-width:420px">Reserva tu mesa o pide a domicilio directo con nosotros, sin comisiones de terceros. En el centro de Chiclayo desde 2006.</p><div class="row"><a class="btn" href="#/carta">Ver carta</a><a class="btn s" href="#/reservar">Reservar mesa</a></div></div>${pz(300)}</section><h2>Las favoritas</h2><div class="g">${P.slice(0, 4).map(card).join('')}</div><h2>Cómo funciona</h2><div class="g"><div class="box"><h3>1. Crea tu cuenta</h3><p class="mu">Con tu celular, en menos de un minuto.</p></div><div class="box"><h3>2. Reserva o pide</h3><p class="mu">Elige fecha y hora, o arma tu pedido con el carrito.</p></div><div class="box"><h3>3. Sigue tu pedido</h3><p class="mu">Mira en vivo si se prepara, va en camino o ya llegó.</p></div></div>`,
+            carta: () => `<h1>Nuestra carta</h1><p class="mu">Elige, agrega y paga sin comisiones.</p><div class="chips" role="tablist">${['Pizzas', 'Pastas', 'Bebidas', 'Postres'].map(c => `<button class="chip ${S.cat == c ? 'on' : ''}" data-a="cat" data-c="${c}">${c}</button>`).join('')}</div><div class="g">${P.filter(p => p.c == S.cat).map(card).join('')}</div>`,
+            nosotros: () => `<h1>Nuestra historia</h1><p class="mu mid" style="margin:0 0 24px">Una de las pizzerías más tradicionales de Chiclayo. Masa, salsa y horno encendido todos los días, para almuerzos y cenas en familia.</p><div class="kp"><div><b>2006</b>Año de apertura</div><div><b>+18</b>Años de servicio</div><div><b>4.8</b>Valoración de clientes</div><div><b>Centro</b>Av. Balta, Chiclayo</div></div>`,
+            contacto: () => `<div class="mid"><h1>Contacto</h1><p class="mu">Visítanos o escríbenos.</p><div class="map" role="img" aria-label="Mapa del local"></div><p><b>Dirección:</b> Av. Balta 365, Chiclayo</p><p><b>Horario:</b> Mar a Dom, 13:00 a 00:00 (lunes cerrado)</p><div class="nar" style="margin-left:0">${fld('cn', 'Nombre', 'Tu nombre')}${fld('cm', 'Correo', 'tucorreo@ejemplo.com', 'email')}<label for="cx">Mensaje</label><textarea id="cx" placeholder="Escribe tu mensaje"></textarea><small class="err" id="e_cx"></small><br><button class="btn w" data-a="msg">Enviar mensaje</button></div></div>`,
+            login: () => `<div class="nar ctr"><h1>Bienvenido</h1><p class="mu">Ingresa para reservar o pedir</p><div style="text-align:left">${fld('li', 'Celular o correo', '999 888 777')}${fld('lp', 'Contraseña', '••••••••', 'password')}<br><button class="btn w" data-a="login">Ingresar</button></div><button class="lk" data-go="recuperar">¿Olvidaste tu contraseña?</button><br><button class="lk" data-go="registro">Crear cuenta nueva</button><p class="mu" style="font-size:13px;margin-top:16px">Demo del negocio: 900000000 / admin123</p></div>`,
+            registro: () => `<div class="nar ctr"><h1>Crea tu cuenta</h1><p class="mu">Solo toma un minuto</p><div style="text-align:left">${fld('rn', 'Nombre completo', 'Tu nombre')}${fld('rc', 'Celular', '999 888 777', 'tel')}${fld('rm', 'Correo (opcional)', 'tucorreo@ejemplo.com', 'email')}${fld('rp', 'Contraseña', 'Mínimo 8 caracteres', 'password')}<label style="display:flex;gap:8px;font-weight:500"><input type="checkbox" id="rt" style="width:24px;min-height:24px"> Acepto los términos y condiciones</label><small class="err" id="e_rt"></small><br><button class="btn w" data-a="reg">Crear cuenta</button></div><button class="lk" data-go="login">Ya tengo cuenta</button></div>`,
+            recuperar: () => S.rc ? `<div class="nar ctr"><h1>Nueva contraseña</h1><p class="mu">Ingresa el código de 4 dígitos</p><div style="text-align:left">${fld('cd', 'Código', '1234')}${fld('np', 'Nueva contraseña', 'Mínimo 8 caracteres', 'password')}<br><button class="btn w" data-a="reset">Cambiar contraseña</button></div></div>` : `<div class="nar ctr"><h1>Recupera tu acceso</h1><p class="mu">Te enviaremos un código de 4 dígitos</p><div style="text-align:left">${fld('rc2', 'Celular o correo', '999 888 777')}<br><button class="btn w" data-a="code">Enviar código</button></div><button class="lk" data-go="login">Volver a iniciar sesión</button></div>`,
+            selector: () => `<div class="ctr"><h1>¿Qué deseas hacer?</h1><p class="mu">Hola, ${esc(S.me.n.split(' ')[0])}</p></div><div class="g mid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:24px"><a class="card ctr" href="#/reservar" style="padding:32px"><div class="img" style="height:110px">${ic('utensils', 52)}</div><h3>Reservar mesa</h3><p class="mu">Asegura tu lugar en el local</p></a><a class="card ctr" href="#/carta" style="padding:32px"><div class="img" style="height:110px">${ic('truck', 52)}</div><h3>Pedir a domicilio</h3><p class="mu">Recibe tu pedido en casa</p></a></div><p class="ctr"><a class="lk" href="#/tracking">Ver mi último pedido</a></p>`,
+            reservar: () => {
+                const r = S.rv || (S.rv = {y: new Date().getFullYear(), m: new Date().getMonth(), d: null, t: null, n: 2}), t0 = new Date(); t0.setHours(0, 0, 0, 0); const off = (new Date(r.y, r.m, 1).getDay() + 6) % 7, nd = new Date(r.y, r.m + 1, 0).getDate(); let c = 'LMXJVSD'.split('').map(x => `<b>${x}</b>`).join('') + '<span></span>'.repeat(off); for (let d = 1; d <= nd; d++)c += `<button class="d ${r.d == d ? 'on' : ''}" data-a="day" data-d="${d}" ${new Date(r.y, r.m, d) < t0 ? 'disabled' : ''}>${d}</button>`;
+                return `<div class="mid"><h1>Reservar mesa</h1><p class="mu">Elige fecha, hora y comensales</p><div class="row sp" style="margin-top:16px"><button class="ic" data-a="mes" data-d="-1" aria-label="Mes anterior">${ic('chevL')}</button><h3>${MES[r.m]} ${r.y}</h3><button class="ic" data-a="mes" data-d="1" aria-label="Mes siguiente">${ic('chevR')}</button></div><div class="cal">${c}</div><div class="chips">${HRS.map((h, i) => `<button class="chip ${r.t == h ? 'on' : ''}" data-a="hora" data-h="${h}" ${r.d && ((r.d * 7 + i * 3) % 5 == 0) ? 'disabled' : ''}>${h}</button>`).join('')}</div><div class="box row sp"><b>Comensales</b><div class="qty"><button data-a="pers" data-d="-1" aria-label="Menos">−</button><b>${r.n}</b><button data-a="pers" data-d="1" aria-label="Más">+</button></div></div><br>${sum([['Fecha', r.d ? `${r.d} de ${MES[r.m]}` : 'Sin elegir'], ['Hora', r.t || 'Sin elegir'], ['Comensales', r.n]])}<br><button class="btn w" data-a="goT" ${r.d && r.t ? '' : 'disabled'}>Continuar</button></div>`
+            },
+            titular: () => {if (!S.rv?.t) return go('reservar'); return `<div class="nar"><h1>Datos del titular</h1><p class="mu">¿A nombre de quién reservamos?</p>${fld('tn', 'Nombre completo', 'Tu nombre', 'text', S.me.n)}${fld('tt', 'Teléfono', '999 888 777', 'tel', S.me.c)}${fld('tm', 'Correo', 'tucorreo@ejemplo.com', 'email', S.me.m)}<label for="tx">Notas especiales</label><textarea id="tx" placeholder="Mesa cerca de la ventana"></textarea><br><br><button class="btn w" data-a="confRes">Confirmar reserva</button><p class="ctr"><button class="lk" data-go="reservar">Volver</button></p></div>`},
+            carrito: () => !S.cart.length ? `<div class="ctr nar"><div style="font-size:64px">${ic('cart', 64)}</div><h1>Tu carrito está vacío</h1><p class="mu" style="margin-bottom:24px">Agrega pizzas, pastas o bebidas desde la carta.</p><a class="btn" href="#/carta">Ver carta</a></div>` : `<div class="mid"><h1>Tu carrito</h1><p class="mu">${qty()} productos</p><div>${S.cart.map(i => {const p = pr(i.id); return `<div class="it"><div class="im">${art(p).replace('110', '40')}</div><div><b>${p.n}</b><br><span class="mu">${money(p.p)}</span></div><div class="qty"><button data-a="q" data-id="${i.id}" data-d="-1" aria-label="Quitar uno">−</button><b>${i.q}</b><button data-a="q" data-id="${i.id}" data-d="1" aria-label="Agregar uno">+</button></div></div>`}).join('')}</div><br>${sum([['Subtotal', money(sub())], ['Delivery', money(DLV)]], money(sub() + DLV))}<br><button class="btn w" data-go="checkout">Ir a pagar</button><br><br><a class="btn s w" href="#/carta">Agregar más productos</a></div>`,
+            checkout: () => {
+                if (!S.cart.length) return go('carrito'); if (!S.me && !S.guest) return `<div class="nar ctr"><h1>¿Cómo quieres continuar?</h1><p class="mu" style="margin-bottom:24px">Con cuenta guardas tus pedidos. Como invitado, solo necesitas tus datos de entrega.</p><button class="btn w" data-go="login">Iniciar sesión o registrarme</button><br><br><button class="btn s w" data-a="guest">Continuar como invitado</button></div>`;
+                return `<div class="mid"><h1>Dirección y pago</h1><div class="map" role="img" aria-label="Mapa de entrega"></div>${!S.me ? fld('gn', 'Nombre', 'Tu nombre') + fld('gt', 'Celular', '999 888 777', 'tel') : ''}${fld('ad', 'Dirección de entrega', 'Av. Balta 365, Chiclayo')}${fld('rf', 'Referencia', 'Frente al parque')}<h2 style="font-size:20px;margin:28px 0 0">Método de pago</h2><div class="chips">${['Yape', 'Tarjeta', 'Efectivo'].map(m => `<button class="chip ${(S.pay || 'Yape') == m ? 'on' : ''}" data-a="pay" data-m="${m}">${m}</button>`).join('')}</div>${sum([['Subtotal', money(sub())], ['Delivery', money(DLV)]], money(sub() + DLV))}<br><button class="btn w" data-a="place">Confirmar pedido</button></div>`
+            },
+            confirmacion: id => {
+                const r = S.res.find(x => x.id == id), o = S.orders.find(x => x.id == id); const k = '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="var(--gr)"/><path d="M28 52l16 16 30-34" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                return r ? `<div class="nar ok ctr">${k}<h1>¡Reserva confirmada!</h1><p class="mu">Código ${r.id}. Te esperamos.</p><br>${sum([['Titular', esc(r.name)], ['Fecha', `${r.d} de ${MES[r.m]} ${r.y}`], ['Hora', r.t], ['Comensales', r.n]])}<br><a class="btn w" href="#/">Volver al inicio</a></div>` : o ? `<div class="nar ok ctr">${k}<h1>¡Pedido confirmado!</h1><p class="mu">Llegará en ${ETA[0]}</p><br>${sum([['Pedido', '#' + o.id], ['Pago', o.pay], ['Entrega', esc(o.addr)], ['Total', money(o.total)]])}<br><a class="btn w" href="#/tracking/${o.id}">Seguir mi pedido</a></div>` : go('')
+            },
+            tracking: id => {
+                const mine = S.orders.filter(o => S.me ? o.by == S.me.c : o.id == id); const o = S.orders.find(x => x.id == id) || mine[mine.length - 1]; if (!o) return `<div class="nar ctr"><h1>Aún no tienes pedidos</h1><br><a class="btn" href="#/carta">Ver carta</a></div>`;
+                return `<div class="mid ctr"><h1>Pedido #${o.id}</h1><p class="mu">Tiempo estimado: ${ETA[o.st]}</p><div style="margin:16px auto">${pz(110)}</div>${steps(o.st)}<div class="map"></div><div style="text-align:left">${sum(o.items.map(i => [`${i.q} × ${pr(i.id).n}`, money(i.q * pr(i.id).p)]), money(o.total))}</div><br><a class="btn s w" href="#/">Volver al inicio</a></div>`
+            },
+            panel: () => {const a = S.orders.filter(o => o.st < 3).length; return `<h1>Panel del negocio</h1><p class="mu">Actualiza el estado y el cliente lo verá en su seguimiento.</p><br><div class="kp"><div><b>${S.orders.length}</b>Pedidos</div><div><b>${S.res.length}</b>Reservas</div><div><b>${money(S.orders.reduce((s, o) => s + o.total, 0))}</b>Ventas</div><div><b>${a}</b>Pedidos activos</div></div><h2>Pedidos recientes</h2><div class="tw"><table><tr><th>Orden</th><th>Cliente</th><th>Estado</th><th>Total</th><th></th></tr>${[...S.orders].reverse().map(o => `<tr><td>#${o.id}</td><td>${esc(o.name)}</td><td class="tg ${o.st == 3 ? 'z' : ''}">${EST[o.st]}</td><td>${money(o.total)}</td><td>${o.st < 3 ? `<button class="btn sm" data-a="adv" data-id="${o.id}">Avanzar</button>` : ''}</td></tr>`).join('')}</table></div><h2>Reservas</h2><div class="tw"><table><tr><th>Código</th><th>Titular</th><th>Fecha</th><th>Hora</th><th>Personas</th></tr>${S.res.map(r => `<tr><td>${r.id}</td><td>${esc(r.name)}</td><td>${r.d} ${MES[r.m]}</td><td>${r.t}</td><td>${r.n}</td></tr>`).join('') || '<tr><td colspan=5 class=mu>Sin reservas todavía.</td></tr>'}</table></div><br><button class="btn s sm" data-a="reset0">Reiniciar datos de demo</button>`}
+        };
+        const G = ['selector', 'reservar', 'titular'];
+        const A = {
+            theme() {S.th = S.th == 'dark' ? 'light' : 'dark'; save(); render(1)}, out() {S.me = null; S.guest = 0; save(); go('')}, cat(d, t) {S.cat = t.dataset.c; render(1)},
+            add(d) {const i = S.cart.find(x => x.id == d.id); i ? i.q++ : S.cart.push({id: d.id, q: 1}); save(); $$('.badge').forEach(b => {b.hidden = false; b.textContent = qty(); b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump')}); toast('Agregado: ' + pr(d.id).n)},
+            q(d) {const i = S.cart.find(x => x.id == d.id); i.q += +d.d; S.cart = S.cart.filter(x => x.q > 0); save(); render(1)},
+            msg() {clr(); let e = 0; if (v('cn').length < 2) e = bad('cn', 'Escribe tu nombre.'); else if (!/^\S+@\S+\.\S+$/.test(v('cm'))) e = bad('cm', 'Ingresa un correo válido.'); else if (v('cx').length < 5) e = bad('cx', 'Escribe tu mensaje.'); if (!e) {toast('Mensaje enviado. Te responderemos pronto.'); render(1)} },
+            login() {clr(); const u = S.users.find(u => (u.c == v('li') || u.m && u.m == v('li')) && u.p == v('lp')); if (!v('li')) return bad('li', 'Ingresa tu celular o correo.'); if (!u) return bad('lp', 'Usuario o contraseña incorrectos. Inténtalo de nuevo.'); S.me = u; save(); const n = S.next; S.next = null; toast('Hola, ' + u.n.split(' ')[0]); location.hash = n ? n.slice(1) : u.admin ? '/panel' : '/selector'},
+            reg() {clr(); if (v('rn').length < 3) return bad('rn', 'Escribe tu nombre completo.'); if (!/^9\d{8}$/.test(v('rc').replace(/\s/g, ''))) return bad('rc', 'Ingresa un celular de 9 dígitos que empiece con 9.'); if (v('rm') && !/^\S+@\S+\.\S+$/.test(v('rm'))) return bad('rm', 'El correo no es válido.'); if (v('rp').length < 8) return bad('rp', 'La contraseña debe tener al menos 8 caracteres.'); if (!$('#rt').checked) return bad('rt', 'Debes aceptar los términos.'); const c = v('rc').replace(/\s/g, ''); if (S.users.some(u => u.c == c)) return bad('rc', 'Ese celular ya tiene una cuenta.'); const u = {n: v('rn'), c, m: v('rm'), p: v('rp')}; S.users.push(u); S.me = u; save(); toast('Cuenta creada'); const n = S.next; S.next = null; location.hash = n ? n.slice(1) : '/selector'},
+            code() {clr(); if (!v('rc2')) return bad('rc2', 'Ingresa tu celular o correo.'); const u = S.users.find(u => u.c == v('rc2') || u.m == v('rc2')); if (!u) return bad('rc2', 'No encontramos una cuenta con esos datos.'); S.rec = u; S.rc = 1; toast('Código enviado: 1234 (demo)'); render(1)},
+            reset() {clr(); if (v('cd') != '1234') return bad('cd', 'El código no es correcto.'); if (v('np').length < 8) return bad('np', 'Mínimo 8 caracteres.'); S.rec.p = v('np'); S.rc = 0; save(); toast('Contraseña actualizada'); go('login')},
+            mes(d) {const r = S.rv, m = r.m + +d.d; r.y += m < 0 ? -1 : m > 11 ? 1 : 0; r.m = (m + 12) % 12; r.d = r.t = null; render(1)}, day(d) {S.rv.d = +d.d; S.rv.t = null; render(1)}, hora(d) {S.rv.t = d.h; render(1)}, pers(d) {S.rv.n = Math.min(12, Math.max(1, S.rv.n + +d.d)); render(1)}, goT() {go('titular')},
+            confRes() {clr(); if (v('tn').length < 3) return bad('tn', 'Escribe el nombre del titular.'); if (!/^9\d{8}$/.test(v('tt').replace(/\s/g, ''))) return bad('tt', 'Ingresa un celular válido de 9 dígitos.'); const r = {...S.rv, id: 'R' + (1001 + S.res.length), name: v('tn'), tel: v('tt'), mail: v('tm'), notes: v('tx')}; S.res.push(r); S.rv = null; save(); go('confirmacion/' + r.id)},
+            guest() {S.guest = 1; render(1)}, pay(d) {S.pay = d.m; render(1)},
+            place() {clr(); if (!S.me) {if (v('gn').length < 2) return bad('gn', 'Escribe tu nombre.'); if (!/^9\d{8}$/.test(v('gt').replace(/\s/g, ''))) return bad('gt', 'Ingresa un celular válido de 9 dígitos.')} if (v('ad').length < 6) return bad('ad', 'Ingresa una dirección de entrega completa.'); const o = {id: 'P' + (1041 + S.orders.length), items: S.cart.map(i => ({...i})), total: sub() + DLV, addr: v('ad'), ref: v('rf'), pay: S.pay || 'Yape', name: S.me ? S.me.n : v('gn'), tel: S.me ? S.me.c : v('gt'), by: S.me?.c, st: 0, ts: Date.now()}; S.orders.push(o); S.cart = []; S.guest = 0; save(); go('confirmacion/' + o.id)},
+            adv(d) {const o = S.orders.find(x => x.id == d.id); if (o.st < 3) o.st++; save(); toast(`Pedido #${o.id}: ${EST[o.st]}`); render(1)}, reset0() {S.orders = seed; S.res = []; save(); render(1)}
+        };
+        document.addEventListener('click', e => {const t = e.target.closest('[data-go],[data-a]'); if (!t) return; if (t.dataset.a) A[t.dataset.a]?.(t.dataset, t); else go(t.dataset.go)});
+        addEventListener('hashchange', () => render());
+        addEventListener('storage', () => {S.orders = L('v_orders', S.orders); S.res = L('v_res', S.res); S.nt = L('v_nt', S.nt); S.cfg = L('v_cfg', S.cfg); if (/tracking|panel/.test(location.hash)) render(1)});
+        setInterval(() => {if (!/tracking|panel/.test(location.hash)) return; const o = L('v_orders', null); if (o && JSON.stringify(o) != JSON.stringify(S.orders)) {S.orders = o; render(1)} }, 2500);
+        /* ===== Módulo 2: reglas de dominio, roles, cuenta y operación ===== */
+        S.cfg = L('v_cfg', {open: 1, min: 25, auto: 0}); S.log = L('v_log', []); S.nt = L('v_nt', []); Object.assign(S, {fail: 0, lock: 0, q: '', tab: 'orders', ct: 'res', cpn: null, zone: 'Chiclayo', sz: {}, f: {}});
+        S.users.forEach(u => {if (u.admin) u.role = 'admin'}); if (!S.users.some(u => u.c == '900000001')) S.users.push({n: 'Atención y Cocina', c: '900000001', m: '', p: 'cocina123', role: 'staff'});
+        const SZ = {Personal: .7, Mediana: 1, Familiar: 1.4}, ZN = {'Chiclayo': [5, '30 a 40 min'], 'José Leonardo Ortiz': [7, '35 a 45 min'], 'La Victoria': [8, '40 a 50 min'], 'Pimentel': [12, '45 a 60 min']}, CP = {VENECIA10: ['10 % de descuento', s => s * .1], BIENVENIDO: ['S/ 5 de descuento en tu primer pedido', () => 5]}, MAXM = 6, TAG = {admin: 'Dueño', staff: 'Personal', cliente: 'Cliente'};
+        HRS.length = 0; HRS.push('13:00', '13:30', '14:00', '14:30', '19:00', '19:30', '20:00', '20:30', '21:00', '22:00'); G.push('cuenta');
+        const up = i => {const p = pr(i.id); return Math.round(p.p * (p.c == 'Pizzas' ? SZ[i.z || 'Mediana'] : 1))}, nm = i => pr(i.id).n + (pr(i.id).c == 'Pizzas' ? ` (${i.z || 'Mediana'})` : '');
+        const role = () => S.me ? (S.me.admin ? 'admin' : S.me.role || 'cliente') : '', PERM = {admin: ['orders', 'res', 'money', 'cfg', 'log'], staff: ['orders', 'res']}, can = a => (PERM[role()] || []).includes(a);
+        const audit = t => {S.log.unshift({t: Date.now(), by: S.me?.n || 'Sistema', x: t}); S.log.length = Math.min(S.log.length, 40); save()}, note = (to, x) => {if (to) {S.nt.unshift({to, x, t: Date.now(), r: 0}); save()} };
+        const dlv = () => ZN[S.zone][0], disc = () => {const c = CP[S.cpn]; return c ? Math.round(c[1](sub())) : 0}, tot = () => sub() - disc() + dlv(), stt = o => o.x ? 'Cancelado' : EST[o.st], fmt = t => new Date(t).toLocaleString('es-PE', {day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'});
+        const unread = () => S.me ? S.nt.filter(n => n.to == S.me.c && !n.r).length : 0, tables = n => Math.ceil(n / 4), when = r => new Date(r.y, r.m, r.d, +r.t.slice(0, 2), +r.t.slice(3)), canC = r => when(r) - Date.now() >= 72e5;
+        const used = (y, m, d, t) => S.res.filter(r => r.st == 'Confirmada' && r.y == y && r.m == m && r.d == d && r.t == t).reduce((a, r) => a + tables(r.n), 0);
+        const why = (r, h) => {if (when({...r, t: h}) - Date.now() < 72e5) return 'Anticipación mínima de 2 horas'; if (MAXM - used(r.y, r.m, r.d, h) < tables(r.n)) return 'Sin mesas disponibles'; return (r.d * 7 + HRS.indexOf(h) * 3) % 7 == 0 ? 'Horario reservado' : ''};
+        const luhn = s => {s = s.replace(/\D/g, ''); let t = 0;[...s].reverse().forEach((d, i) => {d = +d; if (i % 2) {d *= 2; if (d > 9) d -= 9} t += d}); return s.length == 16 && t % 10 == 0};
+        const empty = (e, t, b) => `<div class="ctr nar"><div style="font-size:56px">${e}</div><h1 style="font-size:26px">${t}</h1><br>${b}</div>`;
+        /* Carta: tamaños y búsqueda */
+        card = p => {const z = S.sz[p.id] || 'Mediana'; return `<article class="card"><div class="img">${art(p)}</div><h3>${p.n}</h3><p class="mu" style="font-size:14px">${p.d}</p>${p.c == 'Pizzas' ? `<div class="chips" style="margin:4px 0">${Object.keys(SZ).map(s => `<button class="chip sm3 ${z == s ? 'on' : ''}" data-a="sz" data-id="${p.id}" data-z="${s}">${s}</button>`).join('')}</div>` : ''}<div class="row sp"><b class="price">${money(up({id: p.id, z}))}</b><button class="add" data-a="add" data-id="${p.id}" aria-label="Agregar ${p.n} al carrito">+</button></div></article>`};
+        const list = () => P.filter(p => p.c == S.cat && (!S.q || (p.n + p.d).toLowerCase().includes(S.q.toLowerCase()))).map(card).join('') || '<p class="mu">No encontramos productos con esa búsqueda.</p>';
+        R.carta = () => `<h1>Nuestra carta</h1><p class="mu">Elige tamaño, agrega y paga sin comisiones.</p><input id="bq" type="search" placeholder="Buscar en la carta" value="${esc(S.q)}" aria-label="Buscar en la carta" style="margin-top:16px"><div class="chips">${['Pizzas', 'Pastas', 'Bebidas', 'Postres'].map(c => `<button class="chip ${S.cat == c ? 'on' : ''}" data-a="cat" data-c="${c}">${c}</button>`).join('')}</div><div class="g" id="pg">${list()}</div>`;
+        addEventListener('input', e => {if (e.target.id == 'bq') {S.q = e.target.value; $('#pg').innerHTML = list()} if (e.target.id == 'rp') {const x = e.target.value, s = (x.length >= 8) + /\d/.test(x) + /[A-Z]/.test(x) + /\W/.test(x), m = $('#e_rp'); m.style.color = s < 3 ? 'var(--er)' : 'var(--gr)'; m.textContent = x ? 'Seguridad: ' + ['débil', 'débil', 'media', 'buena', 'fuerte'][s] : ''} });
+        Object.assign(A, {
+            sz(d) {S.sz[d.id] = d.z; render(1)}, add(d) {const p = pr(d.id), z = p.c == 'Pizzas' ? S.sz[d.id] || 'Mediana' : undefined, i = S.cart.find(x => x.id == d.id && x.z == z); i ? i.q++ : S.cart.push({id: d.id, q: 1, z}); save(); $$('.badge').forEach(b => {if (b.closest('.nr') && b.parentNode.dataset.go) {b.hidden = false; b.textContent = qty(); b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump')} }); toast('Agregado: ' + nm({id: d.id, z}))},
+            q(d) {const i = S.cart[+d.i]; i.q += +d.d; S.cart = S.cart.filter(x => x.q > 0); if (!S.cart.length) S.cpn = null; save(); render(1)},
+            cpn() {clr(); const c = v('cp').toUpperCase(); if (!CP[c]) return bad('cp', 'Cupón no válido. Prueba con VENECIA10.'); if (c == 'BIENVENIDO' && S.me && S.orders.some(o => o.by == S.me.c)) return bad('cp', 'Este cupón es solo para tu primer pedido.'); S.cpn = c; toast('Cupón aplicado'); render(1)}, cpx() {S.cpn = null; render(1)},
+            zone(d) {S.f = {ad: v('ad'), rf: v('rf'), gn: v('gn'), gt: v('gt')}; S.zone = d.z; render(1)}, pay(d) {S.f = {ad: v('ad'), rf: v('rf'), gn: v('gn'), gt: v('gt')}; S.pay = d.m; render(1)}
+        });
+        /* Carrito y checkout con reglas */
+        const car0 = R.carrito; R.carrito = () => !S.cart.length ? car0() : `<div class="mid"><h1>Tu carrito</h1><p class="mu">${qty()} productos</p><div>${S.cart.map((i, k) => `<div class="it"><div class="im">${art(pr(i.id)).replace('110', '40')}</div><div><b>${nm(i)}</b><br><span class="mu">${money(up(i))}</span></div><div class="qty"><button data-a="q" data-i="${k}" data-d="-1" aria-label="Quitar uno">−</button><b>${i.q}</b><button data-a="q" data-i="${k}" data-d="1" aria-label="Agregar uno">+</button></div></div>`).join('')}</div><br>${S.cpn ? `<p class="tg">Cupón ${S.cpn}: ${CP[S.cpn][0]} <button class="lk" data-a="cpx">Quitar</button></p>` : `<div class="row"><div style="flex:1">${fld('cp', 'Cupón de descuento', 'VENECIA10')}</div><button class="btn s sm" data-a="cpn" style="margin-top:6px">Aplicar</button></div>`}<br>${sum([['Subtotal', money(sub())], ...(disc() ? [['Descuento', '− ' + money(disc())]] : []), ['Delivery (' + S.zone + ')', money(dlv())]], money(tot()))}${sub() < S.cfg.min ? `<p class="err" style="margin-top:8px">El pedido mínimo es ${money(S.cfg.min)}. Te faltan ${money(S.cfg.min - sub())}.</p>` : ''}<br><button class="btn w" data-go="checkout" ${sub() < S.cfg.min ? 'disabled' : ''}>Ir a pagar</button><br><br><a class="btn s w" href="#/carta">Agregar más productos</a></div>`;
+        const ck0 = R.checkout; R.checkout = () => {
+            if (!S.cart.length || (!S.me && !S.guest)) return ck0(); if (!S.cfg.open) return empty(ic('lock', 56), 'Estamos cerrados', '<p class="mu">Por ahora no recibimos pedidos. Tu carrito se guarda.</p><br><a class="btn" href="#/carta">Volver a la carta</a>'); if (S.me && role() != 'cliente') return empty(ic('chef', 56), 'Cuenta del negocio', '<p class="mu">Las cuentas del negocio no pueden hacer pedidos. Usa una cuenta de cliente.</p>');
+            const f = S.f, pay = S.pay || 'Yape'; return `<div class="mid"><h1>Dirección y pago</h1><div class="map" role="img" aria-label="Mapa de entrega"></div>${!S.me ? fld('gn', 'Nombre', 'Tu nombre', 'text', f.gn) + fld('gt', 'Celular', '999 888 777', 'tel', f.gt) : ''}${fld('ad', 'Dirección de entrega', 'Av. Balta 365', 'text', f.ad)}${fld('rf', 'Referencia (opcional)', 'Frente al parque', 'text', f.rf)}<h2 style="font-size:20px;margin:28px 0 0">Zona de entrega</h2><div class="chips">${Object.entries(ZN).map(([z, [c, e]]) => `<button class="chip ${S.zone == z ? 'on' : ''}" data-a="zone" data-z="${z}">${z} · ${money(c)}</button>`).join('')}</div><p class="mu" style="font-size:14px">Tiempo estimado: ${ZN[S.zone][1]}. Solo entregamos en estas zonas.</p><h2 style="font-size:20px;margin:28px 0 0">Método de pago</h2><div class="chips">${['Yape', 'Tarjeta', 'Efectivo'].map(m => `<button class="chip ${pay == m ? 'on' : ''}" data-a="pay" data-m="${m}">${m}</button>`).join('')}</div>${pay == 'Tarjeta' ? fld('cn2', 'Número de tarjeta', '4111 1111 1111 1111') + fld('ex', 'Vence (MM/AA)', '08/28') + fld('cv', 'CVV', '123', 'password') : pay == 'Efectivo' ? fld('ef', '¿Con cuánto pagas? (S/)', '100', 'number') : '<p class="mu" style="font-size:14px">Recibirás una solicitud de Yape en tu celular.</p>'}<br>${sum([['Subtotal', money(sub())], ...(disc() ? [['Descuento', '− ' + money(disc())]] : []), ['Delivery', money(dlv())]], money(tot()))}<br><button class="btn w" data-a="place">Confirmar pedido</button></div>`
+        };
+        A.place = () => {
+            clr(); if (!S.cfg.open) return toast('El local no recibe pedidos ahora'); if (sub() < S.cfg.min) return toast('Pedido mínimo ' + money(S.cfg.min)); if (!S.me) {if (v('gn').length < 2) return bad('gn', 'Escribe tu nombre.'); if (!/^9\d{8}$/.test(v('gt').replace(/\s/g, ''))) return bad('gt', 'Ingresa un celular válido de 9 dígitos.')}
+            if (v('ad').length < 8) return bad('ad', 'Ingresa una dirección completa (calle y número).'); const pay = S.pay || 'Yape', T = tot(); if (pay == 'Tarjeta') {if (!luhn(v('cn2'))) return bad('cn2', 'Número de tarjeta no válido (16 dígitos).'); if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(v('ex'))) return bad('ex', 'Usa el formato MM/AA.'); if (!/^\d{3}$/.test(v('cv'))) return bad('cv', 'El CVV tiene 3 dígitos.')} if (pay == 'Efectivo' && +v('ef') < T) return bad('ef', 'Debe ser al menos ' + money(T) + '.');
+            const o = {id: 'P' + (1041 + S.orders.length), items: S.cart.map(i => ({...i})), sub: sub(), disc: disc(), dlv: dlv(), total: T, zone: S.zone, addr: v('ad'), ref: v('rf'), pay, name: S.me ? S.me.n : v('gn'), tel: S.me ? S.me.c : v('gt'), by: S.me?.c, st: 0, x: 0, ts: Date.now()}; S.orders.push(o); S.cart = []; S.cpn = null; S.f = {}; S.guest = 0; note(o.by, `Recibimos tu pedido #${o.id}.`); audit('Pedido creado #' + o.id); go('confirmacion/' + o.id)
+        };
+        R.tracking = id => {
+            const mine = S.orders.filter(o => S.me ? o.by == S.me.c : o.id == id), o = S.orders.find(x => x.id == id) || mine[mine.length - 1]; if (!o) return empty(ic('pizza', 56), 'Aún no tienes pedidos', '<a class="btn" href="#/carta">Ver carta</a>'); if (o.by && o.by != S.me?.c && !can('orders')) return go('');
+            return `<div class="mid ctr"><h1>Pedido #${o.id}</h1><p class="mu">${o.x ? 'Este pedido fue cancelado' : o.st == 3 ? 'Entregado. ¡Buen provecho!' : 'Tiempo estimado: ' + (ZN[o.zone]?.[1] || ETA[o.st])}</p><div style="margin:16px auto">${pz(110)}</div>${o.x ? '' : steps(o.st)}<div class="map"></div><div style="text-align:left">${sum([...o.items.map(i => [`${i.q} × ${nm(i)}`, money(i.q * up(i))]), ...(o.disc ? [['Descuento', '− ' + money(o.disc)]] : []), ['Delivery', money(o.dlv ?? 5)]], money(o.total))}</div>${o.st == 3 && !o.x ? (o.rate ? `<p class="tg" style="margin-top:16px">Tu calificación: ${ic('star', 16).repeat(o.rate)}</p>` : `<h3 style="margin-top:20px">¿Qué tal estuvo?</h3><div class="row" style="justify-content:center">${[1, 2, 3, 4, 5].map(n => `<button class="ic" data-a="rate" data-id="${o.id}" data-n="${n}" aria-label="${n} estrellas">${n}${ic('star', 14)}</button>`).join('')}</div>`) : ''}<br><a class="btn s w" href="#/">Volver al inicio</a></div>`
+        };
+        /* Reservas con reglas */
+        R.reservar = () => {
+            if (role() != 'cliente') return empty(ic('chef', 56), 'Reservas', '<p class="mu">Las cuentas del negocio gestionan las reservas desde el panel.</p><br><a class="btn" href="#/panel">Ir al panel</a>'); if ((S.me.ns || 0) >= 2) return empty(ic('ban', 56), 'Reservas bloqueadas', '<p class="mu">Tu cuenta acumula 2 inasistencias. Escríbenos para reactivarla.</p><br><a class="btn" href="#/contacto">Contactar</a>');
+            const r = S.rv || (S.rv = {y: new Date().getFullYear(), m: new Date().getMonth(), d: null, t: null, n: 2}), t0 = new Date(); t0.setHours(0, 0, 0, 0); const off = (new Date(r.y, r.m, 1).getDay() + 6) % 7, nd = new Date(r.y, r.m + 1, 0).getDate(); let c = 'LMXJVSD'.split('').map(x => `<b>${x}</b>`).join('') + '<span></span>'.repeat(off); for (let d = 1; d <= nd; d++) {const dt = new Date(r.y, r.m, d); c += `<button class="d ${r.d == d ? 'on' : ''}" data-a="day" data-d="${d}" ${dt < t0 || dt.getDay() == 1 || dt - t0 > 30 * 864e5 ? 'disabled' : ''}>${d}</button>`}
+            return `<div class="mid"><p class="mu">Paso 1 de 3</p><h1>Reservar mesa</h1><p class="mu">Lunes cerrado · hasta 30 días · hasta 8 personas</p><div class="row sp" style="margin-top:16px"><button class="ic" data-a="mes" data-d="-1" aria-label="Mes anterior">‹</button><h3>${MES[r.m]} ${r.y}</h3><button class="ic" data-a="mes" data-d="1" aria-label="Mes siguiente">›</button></div><div class="cal">${c}</div><div class="chips">${HRS.map(h => {const w = r.d ? why(r, h) : ''; return `<button class="chip ${r.t == h ? 'on' : ''}" data-a="hora" data-h="${h}" ${w || !r.d ? 'disabled' : ''} title="${w}">${h}</button>`}).join('')}</div><p class="mu" style="font-size:13px">${r.d ? 'Las horas tachadas no están disponibles.' : 'Primero elige un día.'}</p><div class="box row sp"><b>Comensales</b><div class="qty"><button data-a="pers" data-d="-1" aria-label="Menos">−</button><b>${r.n}</b><button data-a="pers" data-d="1" aria-label="Más">+</button></div></div><br>${sum([['Fecha', r.d ? `${r.d} de ${MES[r.m]}` : 'Sin elegir'], ['Hora', r.t || 'Sin elegir'], ['Mesas necesarias', tables(r.n)]])}<br><button class="btn w" data-a="goT" ${r.d && r.t ? '' : 'disabled'}>Continuar</button></div>`
+        };
+        Object.assign(A, {
+            pers(d) {const n = S.rv.n + +d.d; if (n > 8) return toast('Para más de 8 personas escríbenos desde Contacto'); S.rv.n = Math.max(1, n); S.rv.t = null; render(1)},
+            confRes() {clr(); if (v('tn').length < 3) return bad('tn', 'Escribe el nombre del titular.'); if (!/^9\d{8}$/.test(v('tt').replace(/\s/g, ''))) return bad('tt', 'Ingresa un celular válido de 9 dígitos.'); const q = S.rv; if (S.res.some(x => x.by == S.me.c && x.st == 'Confirmada' && x.y == q.y && x.m == q.m && x.d == q.d)) return toast('Ya tienes una reserva confirmada ese día'); if (why(q, q.t)) {toast('Ese horario ya no está disponible'); return go('reservar')} const r = {...q, id: 'R' + (1001 + S.res.length), name: v('tn'), tel: v('tt'), mail: v('tm'), notes: v('tx'), by: S.me.c, st: 'Confirmada'}; S.res.push(r); S.rv = null; note(S.me.c, `Reserva ${r.id} confirmada para el ${r.d} de ${MES[r.m]} a las ${r.t}.`); audit('Reserva creada ' + r.id); go('confirmacion/' + r.id)}
+        });
+        /* Acceso: bloqueo por intentos y contraseña */
+        const l0 = A.login, g0 = A.reg; A.login = () => {clr(); if (S.lock > Date.now()) return bad('lp', `Demasiados intentos. Espera ${Math.ceil((S.lock - Date.now()) / 1e3)} s.`); l0(); if (!S.me) {if (++S.fail >= 3) {S.lock = Date.now() + 3e4; S.fail = 0; bad('lp', 'Demasiados intentos. Espera 30 s.')} } else {S.fail = 0; audit('Inicio de sesión (' + TAG[role()] + ')'); if (role() != 'cliente' && !S.next) location.hash = '/panel'} };
+        A.reg = () => {clr(); $('#e_rp').style.color = ''; if (v('rp') && !/(?=.*\d)(?=.*[A-Za-z])/.test(v('rp'))) return bad('rp', 'Usa letras y números.'); if (v('rm') && S.users.some(u => u.m == v('rm'))) return bad('rm', 'Ese correo ya está registrado.'); g0()};
+        /* Mi cuenta */
+        R.cuenta = () => {
+            const me = S.me, mo = S.orders.filter(o => o.by == me.c).reverse(), mr = S.res.filter(r => r.by == me.c).reverse(), ns = S.nt.filter(n => n.to == me.c), T = [['res', 'Reservas'], ['ord', 'Pedidos'], ['av', 'Avisos' + (unread() ? ` (${unread()})` : '')], ['pf', 'Perfil']]; let b = '';
+            if (S.ct == 'res') b = mr.map(r => `<div class="box row sp" style="margin-bottom:12px"><div><b>${r.id} · ${r.d} ${MES[r.m]}, ${r.t}</b><br><span class="mu">${r.n} personas · ${r.st}</span></div>${r.st == 'Confirmada' && canC(r) ? `<button class="btn s sm" data-a="cancelR" data-id="${r.id}">Cancelar</button>` : ''}</div>`).join('') || '<p class="mu">Aún no tienes reservas. <a class="lk" href="#/reservar">Reservar mesa</a></p>';
+            if (S.ct == 'ord') b = mo.map(o => `<div class="box row sp" style="margin-bottom:12px"><div><b>#${o.id} · ${money(o.total)}</b><br><span class="mu">${fmt(o.ts)} · ${stt(o)}</span></div><div class="row"><a class="btn s sm" href="#/tracking/${o.id}">${o.st == 3 && !o.rate && !o.x ? 'Calificar' : 'Ver'}</a>${o.st == 0 && !o.x ? `<button class="btn s sm" data-a="cancelO" data-id="${o.id}">Cancelar</button>` : ''}</div></div>`).join('') || '<p class="mu">Aún no tienes pedidos. <a class="lk" href="#/carta">Ver carta</a></p>';
+            if (S.ct == 'av') {b = ns.map(n => `<div class="box" style="margin-bottom:12px">${esc(n.x)}<br><span class="mu" style="font-size:13px">${fmt(n.t)}</span></div>`).join('') || '<p class="mu">Sin avisos por ahora.</p>'; ns.forEach(n => n.r = 1); save()}
+            if (S.ct == 'pf') b = `<div class="nar" style="margin:0">${fld('pn', 'Nombre', '', 'text', me.n)}${fld('pm', 'Correo', '', 'email', me.m)}<br><button class="btn w" data-a="saveP">Guardar cambios</button><h2 style="font-size:20px">Cambiar contraseña</h2>${fld('p0', 'Contraseña actual', '', 'password')}${fld('p1', 'Nueva contraseña', 'Mínimo 8 caracteres', 'password')}<br><button class="btn s w" data-a="pass">Actualizar contraseña</button></div>`;
+            return `<h1>Hola, ${esc(me.n.split(' ')[0])}</h1><p class="mu">${me.c} · <span class="tag">${TAG[role()]}</span>${me.ns ? ` · ${me.ns} inasistencia(s)` : ''}</p><div class="chips" role="tablist">${T.map(([k, t]) => `<button class="chip ${S.ct == k ? 'on' : ''}" data-a="ctab" data-t="${k}">${t}</button>`).join('')}</div><div class="mid" style="margin:0">${b}</div>`
+        };
+        Object.assign(A, {
+            ctab(d) {S.ct = d.t; render(1)},
+            cancelR(d) {const r = S.res.find(x => x.id == d.id); if (!canC(r)) return toast('Solo puedes cancelar hasta 2 horas antes'); r.st = 'Cancelada'; note(r.by, `Cancelaste la reserva ${r.id}.`); audit('Reserva cancelada ' + r.id); toast('Reserva cancelada'); render(1)},
+            cancelO(d) {const o = S.orders.find(x => x.id == d.id); if (!(can('orders') || o.by == S.me?.c)) return; if (!can('orders') && o.st > 0) return toast('Ya está en preparación y no se puede cancelar'); o.x = 1; note(o.by, `Se canceló tu pedido #${o.id}.`); audit('Pedido cancelado #' + o.id); toast('Pedido cancelado'); render(1)},
+            rate(d) {const o = S.orders.find(x => x.id == d.id); o.rate = +d.n; save(); toast('¡Gracias por tu calificación!'); render(1)},
+            saveP() {clr(); if (v('pn').length < 3) return bad('pn', 'Escribe tu nombre completo.'); if (v('pm') && !/^\S+@\S+\.\S+$/.test(v('pm'))) return bad('pm', 'El correo no es válido.'); if (v('pm') && S.users.some(u => u != S.me && u.m == v('pm'))) return bad('pm', 'Ese correo ya está registrado.'); S.me.n = v('pn'); S.me.m = v('pm'); save(); toast('Perfil actualizado'); render(1)},
+            pass() {clr(); if (v('p0') != S.me.p) return bad('p0', 'La contraseña actual no coincide.'); if (v('p1').length < 8 || !/\d/.test(v('p1'))) return bad('p1', 'Mínimo 8 caracteres e incluye un número.'); S.me.p = v('p1'); audit('Cambio de contraseña'); toast('Contraseña actualizada'); render(1)}
+        });
+        /* Panel por roles */
+        const bar = (l, n, m) => `<div class="bar2"><span>${l}</span><i style="width:${m ? Math.round(n / m * 100) : 0}%"></i><b>${n}</b></div>`;
+        R.panel = () => {
+            if (!can('orders')) return go('login'); const T = [['orders', 'Pedidos', 1], ['res', 'Reservas', 1], ['money', 'Reportes', can('money')], ['cfg', 'Configuración', can('cfg')], ['log', 'Actividad', can('log')]].filter(x => x[2]), ok = S.orders.filter(o => !o.x); let b = '';
+            if (S.tab == 'orders') b = `<div class="tw"><table><tr><th>Orden</th><th>Cliente</th><th>Detalle</th><th>Estado</th><th></th></tr>${[...S.orders].reverse().map(o => `<tr><td>#${o.id}<br><span class="mu">${fmt(o.ts)}</span></td><td>${esc(o.name)}<br><span class="mu">${esc(o.addr)}</span></td><td>${o.items.map(i => `${i.q}× ${nm(i)}`).join(', ')}<br><b>${money(o.total)}</b> · ${o.pay}</td><td class="tg ${o.st == 3 || o.x ? 'z' : ''}">${stt(o)}</td><td>${!o.x && o.st < 3 ? `<button class="btn sm" data-a="adv" data-id="${o.id}">Avanzar</button> <button class="btn s sm" data-a="cancelO" data-id="${o.id}">Cancelar</button>` : ''}</td></tr>`).join('')}</table></div>`;
+            if (S.tab == 'res') b = `<div class="tw"><table><tr><th>Código</th><th>Titular</th><th>Fecha</th><th>Personas</th><th>Estado</th><th></th></tr>${[...S.res].reverse().map(r => `<tr><td>${r.id}</td><td>${esc(r.name)}<br><span class="mu">${esc(r.tel)}</span></td><td>${r.d} ${MES[r.m]}, ${r.t}</td><td>${r.n} (${tables(r.n)} mesa/s)</td><td class="tg ${r.st == 'Atendida' ? 'z' : ''}">${r.st}</td><td>${r.st == 'Confirmada' ? `<button class="btn sm" data-a="resSt" data-id="${r.id}" data-s="Atendida">Atendida</button> <button class="btn s sm" data-a="resSt" data-id="${r.id}" data-s="No asistió">No asistió</button>` : ''}</td></tr>`).join('') || '<tr><td colspan=6 class="mu">Sin reservas todavía.</td></tr>'}</table></div>`;
+            if (S.tab == 'money') {const rt = ok.filter(o => o.rate), cnt = {}; ok.forEach(o => o.items.forEach(i => cnt[nm(i)] = (cnt[nm(i)] || 0) + i.q)); const top = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 5); b = `<div class="kp"><div><b>${money(ok.reduce((s, o) => s + o.total, 0))}</b>Ventas</div><div><b>${money(ok.length ? ok.reduce((s, o) => s + o.total, 0) / ok.length : 0)}</b>Ticket promedio</div><div><b>${rt.length ? (rt.reduce((s, o) => s + o.rate, 0) / rt.length).toFixed(1) + ' / 5' : '—'}</b>Calificación</div><div><b>${S.orders.filter(o => o.x).length}</b>Cancelados</div></div><h2>Pedidos por estado</h2>${EST.map((e, i) => bar(e, ok.filter(o => o.st == i).length, ok.length)).join('')}<h2>Más vendidos</h2>${top.map(([n, q]) => bar(n, q, top[0][1])).join('') || '<p class="mu">Sin ventas todavía.</p>'}`}
+            if (S.tab == 'cfg') b = `<div class="box row sp"><div><b>Recepción de pedidos</b><br><span class="mu">${S.cfg.open ? 'El local recibe pedidos' : 'Pedidos pausados'}</span></div><button class="btn ${S.cfg.open ? 's' : ''} sm" data-a="cfgOpen">${S.cfg.open ? 'Pausar' : 'Reanudar'}</button></div><br><div class="box row sp"><div><b>Pedido mínimo</b><br><span class="mu">${money(S.cfg.min)}</span></div><div class="row">${[15, 25, 35].map(m => `<button class="chip ${S.cfg.min == m ? 'on' : ''}" data-a="cfgMin" data-m="${m}">S/ ${m}</button>`).join('')}</div></div><br><div class="box row sp"><div><b>Avance automático (demo)</b><br><span class="mu">Los pedidos avanzan solos cada 20 s</span></div><button class="btn ${S.cfg.auto ? '' : 's'} sm" data-a="cfgAuto">${S.cfg.auto ? 'Activado' : 'Activar'}</button></div><h2>Usuarios y roles</h2><div class="tw"><table><tr><th>Nombre</th><th>Celular</th><th>Rol</th><th>Inasistencias</th><th></th></tr>${S.users.map(u => `<tr><td>${esc(u.n)}</td><td>${u.c}</td><td>${TAG[u.admin ? 'admin' : u.role || 'cliente']}</td><td>${u.ns || 0}</td><td>${u.ns ? `<button class="btn s sm" data-a="unlock" data-c="${u.c}">Desbloquear</button>` : ''}</td></tr>`).join('')}</table></div><br><button class="btn s sm" data-a="reset0">Reiniciar datos de demo</button>`;
+            if (S.tab == 'log') b = S.log.map(l => `<div class="box row sp" style="margin-bottom:8px"><span>${esc(l.x)}</span><span class="mu" style="font-size:13px">${esc(l.by)} · ${fmt(l.t)}</span></div>`).join('') || '<p class="mu">Sin actividad registrada.</p>';
+            return `<h1>Panel del negocio</h1><p class="mu">Sesión como <span class="tag">${TAG[role()]}</span>. ${can('cfg') ? 'Acceso total.' : 'Puedes gestionar pedidos y reservas.'}</p><div class="chips" role="tablist">${T.map(([k, t]) => `<button class="chip ${S.tab == k ? 'on' : ''}" data-a="ptab" data-t="${k}">${t}</button>`).join('')}</div>${b}`
+        };
+        const rs = (c, fn) => d => {if (!can(c)) return toast('No tienes permiso para esta acción'); fn(d)};
+        Object.assign(A, {
+            ptab(d) {S.tab = d.t; render(1)}, adv: rs('orders', d => {const o = S.orders.find(x => x.id == d.id); if (o.x || o.st >= 3) return; o.st++; note(o.by, `Tu pedido #${o.id} está: ${EST[o.st]}.`); audit(`Pedido #${o.id} → ${EST[o.st]}`); toast(`Pedido #${o.id}: ${EST[o.st]}`); render(1)}),
+            resSt: rs('res', d => {const r = S.res.find(x => x.id == d.id); r.st = d.s; if (d.s == 'No asistió') {const u = S.users.find(u => u.c == r.by); if (u) u.ns = (u.ns || 0) + 1} note(r.by, `Tu reserva ${r.id} figura como: ${d.s}.`); audit(`Reserva ${r.id} → ${d.s}`); render(1)}),
+            cfgOpen: rs('cfg', () => {S.cfg.open = +!S.cfg.open; audit(S.cfg.open ? 'Pedidos reanudados' : 'Pedidos pausados'); render(1)}), cfgMin: rs('cfg', d => {S.cfg.min = +d.m; audit('Pedido mínimo S/ ' + d.m); render(1)}), cfgAuto: rs('cfg', () => {S.cfg.auto = +!S.cfg.auto; audit('Avance automático ' + (S.cfg.auto ? 'activado' : 'desactivado')); render(1)}),
+            unlock: rs('cfg', d => {S.users.find(u => u.c == d.c).ns = 0; audit('Cuenta desbloqueada ' + d.c); render(1)}), reset0: rs('cfg', () => {S.orders = seed; S.res = []; S.nt = []; S.log = []; S.users.forEach(u => u.ns = 0); audit('Datos de demo reiniciados'); render(1)})
+        });
+        setInterval(() => {if (!S.cfg.auto) return; let ch = 0; S.orders.forEach(o => {if (!o.x && o.st < 3) {o.st++; ch = 1; note(o.by, `Tu pedido #${o.id} está: ${EST[o.st]}.`)} }); if (ch) {save(); if (/tracking|panel|cuenta/.test(location.hash)) render(1)} }, 2e4);
+        /* Render con roles, avisos y banner de local cerrado */
+        function render(soft) {
+            const [, r = '', id] = location.hash.slice(1).split('/'); if (!(r in R)) return go(''); if (G.includes(r) && !S.me) {S.next = location.hash; toast('Inicia sesión para continuar'); return go('login')} if (r == 'panel' && !can('orders')) {S.next = location.hash; toast('Acceso solo para el personal del negocio'); return go('login')}
+            const h = R[r](id); if (h === undefined) return; document.documentElement.dataset.t = S.th; const lk = [['', 'Inicio'], ['carta', 'Carta'], ['nosotros', 'Nosotros'], ['contacto', 'Contacto'], ['ayuda', 'Ayuda'], ...(can('orders') ? [['panel', 'Panel']] : [])], u = unread();
+            $('#app').innerHTML = `<header class="nav"><div class="wrap ni"><a href="#/" class="logo">${pz(28)} Venecia</a><nav class="links" aria-label="Principal">${lk.map(([k, t]) => `<a href="#/${k}" class="${r == k ? 'on' : ''}">${t}</a>`).join('')}</nav><div class="nr"><button class="ic" data-a="theme" aria-label="Cambiar entre modo día y noche">${ic(S.th == 'dark' ? 'sun' : 'moon')}</button><button class="ic" data-go="carrito" aria-label="Carrito">${ic('cart')}<i class="badge" ${qty() ? '' : 'hidden'}>${qty()}</i></button>${S.me ? `<a class="ic" href="#/cuenta" aria-label="Mi cuenta">${ic('user')}<i class="badge" ${u ? '' : 'hidden'}>${u}</i></a><button class="btn s sm hide-m" data-a="out">Salir</button>` : '<button class="btn s sm" data-go="login">Ingresar</button>'}<a class="btn sm hide-m" href="#/reservar">Reservar</a></div></div></header>${S.cfg.open ? '' : '<div class="banner" role="alert">Por ahora no recibimos pedidos. Puedes ver la carta y reservar mesa.</div>'}<main class="wrap" id="main" tabindex="-1" style="padding-top:8px">${h}</main><footer><div class="wrap g"><div><b>Pizzería Venecia</b><p>INVERSIONES REAL S.A.C.<br>RUC 20479999016</p></div><div><b>Visítanos</b><p>${ic('pin', 16)} Av. Balta 365, Chiclayo<br>${ic('clock', 16)} Mar a Dom, 13:00 a 00:00<br>Lunes cerrado</p></div><div><b>Ayuda</b><p><a href="#/ayuda">Centro de ayuda</a><br><a href="#/ayuda">Zonas y costos</a><br><a href="#/contacto">Contacto</a></p></div><div><b>Reservas y pedidos</b><p>Sin comisiones de terceros.<br>Prototipo con datos simulados.</p></div></div></footer><nav class="bar" aria-label="Móvil">${[['', 'home', 'Inicio'], ['carta', 'pizza', 'Carta'], ['reservar', 'calendar', 'Reservar'], ['carrito', 'cart', 'Carrito'], [S.me ? 'cuenta' : 'login', 'user', S.me ? 'Cuenta' : 'Ingresar']].map(([k, i, t]) => `<a href="#/${k}" class="${r == k ? 'on' : ''}"><span>${ic(i, 22)}</span>${t}</a>`).join('')}</nav>`; if (!soft) scrollTo(0, 0)
+        }
+        /* ===== Módulo 3: información, ayuda y experiencia ===== */
+        const FAQ = [['¿Necesito cuenta para pedir?', 'No. Puedes pedir como invitado con tu nombre, celular y dirección. Con cuenta guardas tu historial y recibes avisos.'], ['¿Cuánto demora el delivery?', 'Entre 30 y 60 minutos según la zona. Verás el tiempo estimado antes de confirmar.'], ['¿Puedo cancelar una reserva?', 'Sí, hasta 2 horas antes desde Mi cuenta. Pasado ese plazo, escríbenos desde Contacto.'], ['¿Qué pasa si no asisto a mi reserva?', 'El personal la registra como inasistencia. Con 2 inasistencias las reservas de la cuenta se bloquean hasta que el negocio la reactive.'], ['¿Qué medios de pago aceptan?', 'Yape, tarjeta y efectivo. En efectivo indica con cuánto pagas para preparar el vuelto.'], ['¿Cómo funcionan los cupones?', 'Ingresa el código en el carrito. VENECIA10 da 10 % de descuento y BIENVENIDO descuenta S/ 5 en tu primer pedido. No se acumulan.']];
+        const faq = () => FAQ.map(([q, a]) => `<details class="fq"><summary>${q}</summary><p class="mu">${a}</p></details>`).join(''), info = (i, t, d) => `<div class="box"><div class="ib">${ic(i, 24)}</div><h3>${t}</h3><p class="mu" style="font-size:15px;margin-top:4px">${d}</p></div>`, ol = a => `<ol class="ol">${a.map(x => `<li>${x}</li>`).join('')}</ol>`;
+        const h0 = R[''], n0 = R.nosotros, cf0 = R.confirmacion, tr0 = R.tracking;
+        R[''] = () => h0() + `<h2>Por qué pedir directo</h2><div class="g">${info('tag', 'Sin comisiones', 'Pagas el precio de la carta. No intermediamos con aplicaciones de terceros.')}${info('pin', 'Seguimiento en vivo', 'Mira tu pedido en cuatro etapas: recibido, preparando, en camino y entregado.')}${info('calendar', 'Reserva sin esperas', 'Asegura tu mesa en horas de alta demanda y evita la cola en la puerta.')}${info('shield', 'Pago validado', 'Yape, tarjeta o efectivo, con verificación de datos antes de confirmar.')}</div><h2>Horario y ubicación</h2><div class="g" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))"><div class="box sm2"><div><span>${ic('clock', 18)} Martes a domingo</span><b>13:00 a 00:00</b></div><div><span>${ic('clock', 18)} Lunes</span><b>Cerrado</b></div><div><span>${ic('pin', 18)} Dirección</span><b>Av. Balta 365</b></div><div><span>${ic('phone', 18)} Pedidos y reservas</span><b>Desde esta web</b></div></div><div class="map" style="margin:0;height:auto;min-height:170px" role="img" aria-label="Mapa del local"></div></div><h2>Lo que dicen los clientes</h2><div class="g">${[['Rosa V.', 'Fuimos en familia un sábado y la reserva funcionó perfecto. Cero cola.'], ['Miguel A.', 'El pedido llegó caliente y pude ver en qué estado iba.'], ['Familia Torres', 'Pedir directo sale más conveniente que en las aplicaciones.']].map(([n, t]) => `<div class="box"><div style="color:var(--pr)">${ic('star', 16).repeat(5)}</div><p style="margin:8px 0">${t}</p><b style="font-size:14px">${n}</b></div>`).join('')}</div><p class="mu" style="font-size:13px;margin-top:8px">Reseñas de ejemplo para el prototipo.</p><h2>Preguntas frecuentes</h2><div class="mid" style="margin:0">${faq()}<p style="margin-top:16px"><a class="lk" href="#/ayuda">Ver centro de ayuda</a></p></div>`;
+        R.nosotros = () => n0() + `<h2>Lo que nos define</h2><div class="g">${info('pizza', 'Pizza y pasta de siempre', 'Recetas clásicas italianas, en porciones para compartir en familia.')}${info('user', 'Atención cercana', 'Un equipo que te conoce y cuida cada reserva y cada pedido.')}${info('pin', 'En el centro de Chiclayo', 'Nuestro local está en Av. Balta, a pasos de la plaza principal.')}</div><h2>Un recorrido por el servicio</h2>${ol(['Elige entre reservar mesa o pedir a domicilio.', 'Confirma tus datos; validamos horarios, zonas y pagos.', 'Recibe avisos en Mi cuenta y sigue tu pedido en vivo.', 'Califica tu experiencia al recibir tu pedido.'])}<p style="margin-top:20px"><a class="btn" href="#/reservar">Reservar mesa</a></p>`;
+        R.ayuda = () => `<div class="mid"><h1>Centro de ayuda</h1><p class="mu">Todo lo que necesitas para reservar y pedir sin sorpresas.</p><h2>Cómo reservar una mesa</h2>${ol(['Inicia sesión o crea tu cuenta.', 'Elige el día (de martes a domingo) y una hora disponible.', 'Indica los comensales (hasta 8).', 'Completa los datos del titular y confirma.', 'Recibirás un código y un aviso en Mi cuenta.'])}<h2>Cómo pedir a domicilio</h2>${ol(['Elige tus productos y el tamaño de las pizzas.', 'Revisa el carrito y aplica un cupón si tienes.', 'Elige tu zona de entrega e ingresa tu dirección.', 'Escoge el método de pago y confirma.', 'Sigue el estado de tu pedido en vivo.'])}<h2>Zonas de entrega y costos</h2><div class="tw"><table><tr><th>Zona</th><th>Costo</th><th>Tiempo estimado</th></tr>${Object.entries(ZN).map(([z, [c, e]]) => `<tr><td>${z}</td><td>${money(c)}</td><td>${e}</td></tr>`).join('')}</table></div><p class="mu" style="margin-top:8px">Pedido mínimo: ${money(S.cfg.min)}. Solo entregamos en las zonas indicadas.</p><h2>Políticas</h2><div class="g">${info('calendar', 'Reservas', 'Hasta 30 días de anticipación, máximo 8 personas, lunes cerrado. Se cancelan hasta 2 horas antes.')}${info('ban', 'Inasistencias', 'Dos inasistencias bloquean las reservas de la cuenta hasta que el negocio la reactive.')}${info('cart', 'Pedidos', 'Se cancelan solo en estado Recibido. Un cupón por pedido, no acumulables.')}${info('shield', 'Datos', 'Usamos tus datos solo para gestionar reservas y pedidos. Este prototipo usa datos simulados.')}</div><h2>Preguntas frecuentes</h2>${faq()}</div>`;
+        R.confirmacion = id => {const h = cf0(id); if (!h) return h; const r = id[0] == 'R', n = r ? ['Llega 10 minutos antes de tu hora.', 'Guarda tu código ' + id + '.', 'Puedes cancelar hasta 2 horas antes desde Mi cuenta.'] : ['Sigue el estado de tu pedido en vivo.', 'Ten tu celular a la mano para el repartidor.', 'Puedes cancelar mientras esté en estado Recibido.']; return h.replace('<br><a class="btn w"', `<br><div class="box" style="text-align:left"><b>Qué sigue</b><ul class="ol">${n.map(x => `<li>${x}</li>`).join('')}</ul></div><br><a class="btn w"`)};
+        R.tracking = id => {const h = tr0(id), m = typeof h == 'string' && h.match(/Pedido #(P\d+)/), o = m && S.orders.find(x => x.id == m[1]); if (!o || o.x) return h; const MS = ['Recibimos tu pedido y lo estamos confirmando.', 'Nuestro equipo está preparando tu pedido.', 'Tu pedido va en camino a ' + esc(o.addr) + '.', 'Pedido entregado. ¡Buen provecho!']; return h.replace('<div class="map"></div>', `<p class="box" style="margin:8px 0 16px">${MS[o.st]}</p><div class="map"></div>`)};
+        addEventListener('keydown', e => {if (e.key != 'Enter' || e.target.tagName != 'INPUT' || e.target.type == 'checkbox' || e.target.type == 'search') return; const b = e.target.closest('.nar,.mid')?.querySelector('.btn[data-a]:not(.s)'); if (b) {e.preventDefault(); b.click()} });
+        const TT = {'': 'Inicio', carta: 'Carta', nosotros: 'Nosotros', contacto: 'Contacto', ayuda: 'Centro de ayuda', login: 'Ingresar', registro: 'Crear cuenta', recuperar: 'Recuperar acceso', selector: 'Qué deseas hacer', reservar: 'Reservar mesa', titular: 'Datos del titular', carrito: 'Carrito', checkout: 'Pago', confirmacion: 'Confirmación', tracking: 'Seguimiento', cuenta: 'Mi cuenta', panel: 'Panel del negocio'}, rd0 = render;
+        render = function (soft) {rd0(soft); document.title = (TT[location.hash.slice(1).split('/')[1] || ''] || 'Pizzería Venecia') + ' | Pizzería Venecia'; if (!soft) $('#main')?.focus({preventScroll: true})};
+        if (!location.hash) location.hash = '/'; render();
+
+        /* ===== Módulo 4: experiencia de aplicación completa ===== */
+        IP.search = '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>';
+        IP.info = '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>';
+        IP.check = '<path d="M20 6L9 17l-5-5"/>';
+        IP.bell = '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>';
+        IP.settings = '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21h-4v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H3v-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V3h4v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9A1.7 1.7 0 0 0 21 10h.1v4H21a1.7 1.7 0 0 0-1.6 1z"/>';
+        IP.chart = '<path d="M4 20V10M10 20V4M16 20v-7M22 20V7"/>';
+        IP.list = '<path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/>';
+        IP.x = '<path d="M6 6l12 12M18 6L6 18"/>';
+        const pvNotice = (icon, title, text, type = '') => `<div class="notice ${type}"><div class="ni2">${ic(icon, 19)}</div><div><b>${title}</b><p>${text}</p></div></div>`;
+        const pvFlow = n => `<div class="flow" aria-label="Progreso">${['Selección', 'Datos', 'Confirmación'].map((x, i) => `<div class="${i + 1 < n ? 'done' : i + 1 == n ? 'on' : ''}">${x}</div>`).join('')}</div>`;
+        const pvStatus = (text, type = 'info') => `<span class="state ${type}">${text}</span>`;
+        const pvModal = (title, text, ok = 'Confirmar', fn, icon = 'info') => {const root = $('#modalRoot'); root.innerHTML = `<div class="dialog-backdrop" role="presentation"><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle"><div class="dialog-icon">${ic(icon, 22)}</div><h2 id="dlgTitle">${title}</h2><p>${text}</p><div class="dialog-actions"><button class="btn s sm" data-dlg="close">Volver</button><button class="btn sm" data-dlg="ok">${ok}</button></div></section></div>`; const close = () => root.innerHTML = ''; root.querySelector('[data-dlg="close"]').onclick = close; root.querySelector('.dialog-backdrop').onclick = e => {if (e.target === e.currentTarget) close()}; root.querySelector('[data-dlg="ok"]').onclick = () => {close(); fn?.()}; root.querySelector('[data-dlg="close"]').focus()};
+        addEventListener('keydown', e => {if (e.key === 'Escape' && $('#modalRoot')?.innerHTML) $('#modalRoot').innerHTML = ''});
+
+        /* Inicio: propuesta de valor, estado operativo y recorrido claro */
+        R[''] = () => {
+            const open = !!S.cfg.open; return `<section class="hero pro"><div class="hero-copy"><span class="eyebrow">${ic('pizza', 15)} Pizzería Venecia · Chiclayo</span><h1>Reserva, pide y sigue todo desde un solo lugar.</h1><p class="lead mu">Una experiencia directa para clientes y para el equipo del negocio: carta, reservas, delivery, pagos, seguimiento y operación en tiempo real.</p><div class="row"><a class="btn" href="#/carta">${ic('pizza', 19)} Ver carta</a><a class="btn s" href="#/reservar">${ic('calendar', 19)} Reservar mesa</a></div><div class="statusline"><span class="status-pill ${open ? '' : 'off'}"><i></i>${open ? 'Pedidos disponibles' : 'Pedidos pausados'}</span><span class="meta-pill">${ic('clock', 15)} Mar–Dom · 13:00–00:00</span><span class="meta-pill">${ic('pin', 15)} Centro de Chiclayo</span></div></div><div class="hero-art">${pz(320)}</div></section>
+<div class="section-head"><div><span class="eyebrow">Servicio digital</span><h2>Todo el recorrido está conectado</h2></div><p class="mu">La demo simula el flujo completo que tendría una aplicación real, incluyendo validaciones, estados y operación interna.</p></div><div class="feature-grid">${[['calendar', 'Reserva con disponibilidad', 'Bloqueo de horarios ocupados, límite de aforo, anticipación mínima y confirmación.'], ['cart', 'Pedido estructurado', 'Tamaños, cantidades, cupones, pedido mínimo, zona de reparto y costo calculado.'], ['pin', 'Seguimiento de entrega', 'Estados del pedido visibles para el cliente y actualizables desde el panel.'], ['shield', 'Control del negocio', 'Roles, permisos, auditoría, reportes, configuración y avisos al cliente.']].map(x => `<article class="feature"><div class="ib">${ic(x[0], 23)}</div><h3>${x[1]}</h3><p class="mu">${x[2]}</p></article>`).join('')}</div>
+<div class="section-head"><div><span class="eyebrow">Recomendados</span><h2>Favoritos de la casa</h2></div><a class="lk" href="#/carta">Ver carta completa</a></div><div class="g">${P.slice(0, 4).map(card).join('')}</div>
+<div class="section-head"><div><span class="eyebrow">Flujo del cliente</span><h2>Simple por fuera, robusto por dentro</h2></div></div><div class="process"><div class="box"><h3>Elige</h3><p class="mu">Explora la carta o selecciona fecha, hora y número de personas.</p></div><div class="box"><h3>Confirma</h3><p class="mu">La app valida datos, disponibilidad, zona, monto y método de pago antes de registrar.</p></div><div class="box"><h3>Haz seguimiento</h3><p class="mu">Recibe avisos, revisa el estado y consulta tu historial desde tu cuenta.</p></div></div>
+<div class="section-head"><div><span class="eyebrow">Información operativa</span><h2>Antes de continuar</h2></div></div><div class="g" style="grid-template-columns:repeat(auto-fit,minmax(270px,1fr))">${info('clock', 'Horario', 'Martes a domingo de 13:00 a 00:00. Lunes cerrado.')}${info('truck', 'Delivery', 'Cobertura en Chiclayo, José Leonardo Ortiz, La Victoria y Pimentel.')}${info('tag', 'Pedido mínimo', money(S.cfg.min) + ' antes del costo de delivery.')}${info('phone', 'Atención', 'Consultas y casos especiales desde la sección Contacto.')}</div>`
+        };
+
+        /* Carta con búsqueda visible y contexto */
+        R.carta = () => `<div class="page-head"><div><span class="eyebrow">Carta digital</span><h1>Nuestra carta</h1><p class="mu">Precios directos, tamaños configurables y carrito persistente.</p></div><span class="meta-pill">${ic('cart', 15)} ${qty()} producto${qty() == 1 ? '' : 's'} en carrito</span></div>${!S.cfg.open ? pvNotice('info', 'Pedidos temporalmente pausados', 'Puedes explorar la carta y preparar tu carrito. Se conservará hasta que el negocio reactive los pedidos.', 'warn') : ''}<div class="searchbox">${ic('search', 20)}<input id="bq" type="search" placeholder="Buscar pizza, pasta, bebida o postre" value="${esc(S.q)}" aria-label="Buscar en la carta"></div><div class="chips" role="tablist" aria-label="Categorías">${['Pizzas', 'Pastas', 'Bebidas', 'Postres'].map(c => `<button class="chip ${S.cat == c ? 'on' : ''}" data-a="cat" data-c="${c}" role="tab" aria-selected="${S.cat == c}">${c}</button>`).join('')}</div><div class="g" id="pg">${list()}</div>`;
+
+        /* Titular: paso claro */
+        const pvOldTit = R.titular; R.titular = () => {if (!S.rv?.t) return go('reservar'); return `<div class="nar">${pvFlow(2)}<span class="eyebrow">Paso 2 de 3</span><h1>Datos del titular</h1><p class="mu">Usaremos estos datos para identificar tu reserva y enviarte avisos.</p>${pvNotice('info', 'Revisa antes de confirmar', `Reserva para ${S.rv.n} persona${S.rv.n == 1 ? '' : 's'}, el ${S.rv.d} de ${MES[S.rv.m]} a las ${S.rv.t}.`)}${fld('tn', 'Nombre completo', 'Tu nombre', 'text', S.me.n)}${fld('tt', 'Teléfono', '999 888 777', 'tel', S.me.c)}${fld('tm', 'Correo (opcional)', 'tucorreo@ejemplo.com', 'email', S.me.m)}<label for="tx">Solicitud especial (opcional)</label><textarea id="tx" placeholder="Ej.: mesa de fácil acceso, silla para niño"></textarea><p class="mu" style="font-size:12px;margin-top:6px">Las solicitudes están sujetas a disponibilidad del local.</p><br><button class="btn w" data-a="confRes">${ic('check', 18)} Confirmar reserva</button><p class="ctr"><button class="lk" data-go="reservar">Volver a fecha y hora</button></p></div>`};
+
+        /* Selector post-login */
+        R.selector = () => `<div class="page-head"><div><span class="eyebrow">Cuenta activa</span><h1>Hola, ${esc(S.me.n.split(' ')[0])}</h1><p class="mu">¿Qué deseas gestionar ahora?</p></div><a class="btn s sm" href="#/cuenta">${ic('user', 18)} Mi cuenta</a></div><div class="g mid" style="grid-template-columns:repeat(auto-fit,minmax(270px,1fr))"><a class="card" href="#/reservar" style="padding:24px"><div class="ib">${ic('calendar', 25)}</div><h3>Reservar mesa</h3><p class="mu">Consulta disponibilidad real de la demo, selecciona hora y recibe tu código.</p><div class="row" style="margin-top:16px"><span class="lk">Iniciar reserva</span></div></a><a class="card" href="#/carta" style="padding:24px"><div class="ib">${ic('truck', 25)}</div><h3>Pedir a domicilio</h3><p class="mu">Arma tu pedido, define zona, método de pago y realiza seguimiento.</p><div class="row" style="margin-top:16px"><span class="lk">Ver carta</span></div></a></div>`;
+
+        /* Checkout: estructura de app con resumen persistente */
+        const pvOldCheckout = R.checkout; R.checkout = () => {if (!S.cart.length || (!S.me && !S.guest)) return pvOldCheckout(); if (!S.cfg.open) return empty(ic('lock', 56), 'Pedidos pausados', '<p class="mu">Tu carrito sigue guardado. Intenta nuevamente cuando el negocio reactive la recepción.</p><br><a class="btn" href="#/carta">Volver a la carta</a>'); if (S.me && role() != 'cliente') return empty(ic('chef', 56), 'Cuenta del negocio', '<p class="mu">Este perfil está destinado a la operación. Para comprar usa una cuenta de cliente.</p>'); const f = S.f, pay = S.pay || 'Yape'; return `<div class="page-head"><div><span class="eyebrow">Checkout seguro · Demo</span><h1>Entrega y pago</h1><p class="mu">Completa los datos requeridos y revisa el total antes de confirmar.</p></div></div><div class="checkout-grid"><section><div class="box"><h3>1. Datos de entrega</h3>${!S.me ? fld('gn', 'Nombre completo', 'Tu nombre', 'text', f.gn) + fld('gt', 'Celular', '999 888 777', 'tel', f.gt) : `<p class="mu" style="margin-top:8px">Pedido a nombre de <b style="color:var(--tx)">${esc(S.me.n)}</b> · ${esc(S.me.c)}</p>`}${fld('ad', 'Dirección de entrega', 'Calle, avenida y número', 'text', f.ad)}${fld('rf', 'Referencia (opcional)', 'Ej.: portón negro, frente al parque', 'text', f.rf)}</div><br><div class="box"><h3>2. Zona de reparto</h3><div class="chips">${Object.entries(ZN).map(([z, [c, e]]) => `<button class="chip ${S.zone == z ? 'on' : ''}" data-a="zone" data-z="${z}">${z} · ${money(c)}</button>`).join('')}</div>${pvNotice('truck', 'Tiempo estimado', ZN[S.zone][1] + ' desde la confirmación. El tiempo puede variar por demanda o tráfico.')}</div><br><div class="box"><h3>3. Método de pago</h3><div class="method-grid">${[['Yape', 'Solicitud al celular'], ['Tarjeta', 'Validación de tarjeta'], ['Efectivo', 'Indica el monto para vuelto']].map(([m, d]) => `<button class="method ${pay == m ? 'on' : ''}" data-a="pay" data-m="${m}"><span>${m}</span><small>${d}</small></button>`).join('')}</div>${pay == 'Tarjeta' ? fld('cn2', 'Número de tarjeta', '4111 1111 1111 1111') + `<div class="row"><div style="flex:1">${fld('ex', 'Vencimiento', '08/28')}</div><div style="flex:1">${fld('cv', 'CVV', '123', 'password')}</div></div>` : pay == 'Efectivo' ? fld('ef', 'Monto con el que pagarás (S/)', '100', 'number') : pvNotice('phone', 'Pago con Yape', 'En esta demostración el pago se simula. En una app real se integraría el proveedor de pago.')}</div></section><aside class="sticky"><div class="summary-card"><h3>Resumen del pedido</h3>${S.cart.map(i => `<div class="row sp" style="padding:7px 0;border-bottom:1px solid var(--l2)"><span>${i.q} × ${esc(nm(i))}</span><b>${money(i.q * up(i))}</b></div>`).join('')}<div style="margin-top:10px">${sum([['Subtotal', money(sub())], ...(disc() ? [['Descuento', '− ' + money(disc())]] : []), ['Delivery · ' + S.zone, money(dlv())]], money(tot()))}</div><button class="btn w" data-a="place" style="margin-top:16px">${ic('shield', 18)} Confirmar pedido</button><p class="mu" style="font-size:12px;text-align:center;margin-top:10px">Al confirmar, se genera un pedido de demostración con seguimiento.</p></div></aside></div>`};
+
+        /* Tracking: línea de tiempo más informativa */
+        R.tracking = id => {const mine = S.orders.filter(o => S.me ? o.by == S.me.c : o.id == id), o = S.orders.find(x => x.id == id) || mine[mine.length - 1]; if (!o) return empty(ic('pizza', 56), 'Aún no tienes pedidos', '<a class="btn" href="#/carta">Ver carta</a>'); if (o.by && o.by != S.me?.c && !can('orders')) return go(''); const msgs = ['Pedido registrado y pendiente de preparación.', 'El equipo está preparando los productos.', 'El pedido salió del local y va hacia la dirección indicada.', 'El pedido fue marcado como entregado.']; return `<div class="mid"><div class="page-head"><div><span class="eyebrow">Seguimiento</span><h1>Pedido #${o.id}</h1><p class="mu">${fmt(o.ts)} · ${esc(o.zone || 'Chiclayo')}</p></div>${pvStatus(stt(o), o.x ? 'bad' : o.st == 3 ? 'good' : o.st == 2 ? 'info' : 'warn')}</div>${o.x ? pvNotice('ban', 'Pedido cancelado', 'Este pedido fue cancelado y ya no continuará avanzando.', 'danger') : pvNotice(o.st == 3 ? 'check' : 'clock', o.st == 3 ? 'Pedido completado' : 'Estado actual', msgs[o.st], o.st == 3 ? 'ok' : '')}<div class="box"><div class="timeline">${EST.map((e, i) => `<div class="timeline-item ${i < o.st ? 'done' : i == o.st ? 'on' : ''}"><b>${e}</b><span>${i == 0 ? 'Pedido recibido por el sistema.' : i == 1 ? 'Preparación en cocina.' : i == 2 ? 'Repartidor asignado y en ruta.' : 'Entrega finalizada.'}</span></div>`).join('')}</div></div><h2 style="font-size:20px;margin-top:24px">Entrega</h2><div class="box"><p><b>${ic('pin', 17)} ${esc(o.addr)}</b></p>${o.ref ? `<p class="mu" style="margin-top:4px">Referencia: ${esc(o.ref)}</p>` : ''}<p class="mu" style="margin-top:8px">Tiempo estimado: ${o.st == 3 ? 'Completado' : ZN[o.zone]?.[1] || ETA[o.st]}</p></div><h2 style="font-size:20px">Detalle</h2>${sum([...o.items.map(i => [`${i.q} × ${nm(i)}`, money(i.q * up(i))]), ...(o.disc ? [['Descuento', '− ' + money(o.disc)]] : []), ['Delivery', money(o.dlv ?? 5)]], money(o.total))}${o.st == 3 && !o.x ? (o.rate ? `<p class="notice ok" style="margin-top:16px">${ic('star', 18)} <b>Calificación registrada: ${o.rate}/5</b></p>` : `<div class="box ctr" style="margin-top:18px"><h3>Califica tu experiencia</h3><p class="mu" style="margin:5px 0 12px">Tu opinión ayuda a completar el flujo de posventa.</p><div class="row" style="justify-content:center">${[1, 2, 3, 4, 5].map(n => `<button class="ic" data-a="rate" data-id="${o.id}" data-n="${n}" aria-label="${n} estrellas">${n}</button>`).join('')}</div></div>`) : ''}<br><a class="btn s w" href="#/cuenta">Volver a Mi cuenta</a></div>`};
+
+        /* Cuenta con encabezado de perfil */
+        const pvOldCuenta = R.cuenta; R.cuenta = () => {const old = pvOldCuenta(); const me = S.me; return `<div class="account-head"><div class="row"><div class="avatar">${ic('user', 24)}</div><div><span class="eyebrow">Mi cuenta</span><h1 style="font-size:28px;margin:0">${esc(me.n)}</h1><p class="mu">${esc(me.c)} · ${TAG[role()]}</p></div></div><button class="btn s sm" data-a="out">Cerrar sesión</button></div>` + old.replace(/<h1>Hola,[\s\S]*?<div class="chips"/, '<div class="chips"')};
+
+        /* Panel: navegación lateral y KPIs reales de la demo */
+        const pvOldPanel = R.panel; R.panel = () => {if (!can('orders')) return go('login'); const ok = S.orders.filter(o => !o.x), active = ok.filter(o => o.st < 3).length, todayRes = S.res.filter(r => r.st == 'Confirmada').length, revenue = ok.reduce((s, o) => s + o.total, 0), tabs = [['orders', 'list', 'Pedidos', 1], ['res', 'calendar', 'Reservas', 1], ['money', 'chart', 'Reportes', can('money')], ['cfg', 'settings', 'Configuración', can('cfg')], ['log', 'shield', 'Actividad', can('log')]].filter(x => x[3]); const full = pvOldPanel(); const start = full.indexOf('<div class="chips"'), end = start >= 0 ? full.indexOf('</div>', start) : -1; let content = full; if (start >= 0 && end >= 0) content = full.slice(end + 6); content = content.replace(/^<h1>[\s\S]*?<\/p>/, ''); return `<div class="page-head"><div><span class="eyebrow">Operación interna</span><h1>Panel del negocio</h1><p class="mu">Vista de demostración con permisos por rol, estados y trazabilidad.</p></div><span class="meta-pill">${ic('user', 15)} ${TAG[role()]}</span></div><div class="metric-grid"><div class="metric"><span class="m-label">Pedidos activos</span><b>${active}</b><small>En proceso actualmente</small></div><div class="metric"><span class="m-label">Reservas confirmadas</span><b>${todayRes}</b><small>Registradas en la demo</small></div><div class="metric"><span class="m-label">Ventas acumuladas</span><b>${money(revenue)}</b><small>Pedidos no cancelados</small></div><div class="metric"><span class="m-label">Alertas</span><b>${S.orders.filter(o => o.x).length}</b><small>Pedidos cancelados</small></div></div><div class="panel-shell"><aside class="panel-side" aria-label="Secciones del panel">${tabs.map(([k, i, t]) => `<button class="${S.tab == k ? 'on' : ''}" data-a="ptab" data-t="${k}">${ic(i, 18)} ${t}</button>`).join('')}</aside><section class="panel-main">${content}</section></div>`};
+
+        /* Confirmaciones destructivas y administrativas */
+        const pvCancelR = A.cancelR, pvCancelO = A.cancelO, pvReset = A.reset0, pvCfgOpen = A.cfgOpen;
+        A.cancelR = d => pvModal('Cancelar reserva', 'La reserva quedará registrada como cancelada y el horario volverá a estar disponible.', 'Cancelar reserva', () => pvCancelR(d), 'calendar');
+        A.cancelO = d => {const o = S.orders.find(x => x.id == d.id); if (o && o.st > 0 && !can('orders')) return toast('Ya está en preparación y no se puede cancelar'); pvModal('Cancelar pedido', 'Esta acción detendrá el pedido. En una aplicación real podría depender de la política de devolución.', 'Cancelar pedido', () => pvCancelO(d), 'ban')};
+        A.reset0 = d => pvModal('Reiniciar datos de demostración', 'Se restablecerán pedidos, reservas, avisos, actividad e inasistencias de esta demo.', 'Reiniciar demo', () => pvReset(d), 'settings');
+        A.cfgOpen = d => pvModal(S.cfg.open ? 'Pausar pedidos' : 'Reanudar pedidos', S.cfg.open ? 'Mientras estén pausados, los clientes podrán ver la carta pero no confirmar pedidos.' : 'Los clientes volverán a poder confirmar pedidos desde el checkout.', S.cfg.open ? 'Pausar' : 'Reanudar', () => pvCfgOpen(d), 'settings');
+
+        /* Confirmación final con progreso */
+        const pvConfirm = R.confirmacion; R.confirmacion = id => {const h = pvConfirm(id); if (typeof h !== 'string') return h; return h.replace('<div class="nar ok ctr">', `<div class="nar ok ctr">${pvFlow(3)}`)};
+
+        /* Ajuste final de render: marca de entorno demo y aria-current */
+        const pvRender = render; render = function (soft) {pvRender(soft); $$('.links a,.bar a').forEach(a => {if (a.classList.contains('on')) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current')}); const main = $('#main'); if (main && !main.querySelector('.demo-ribbon') && can('orders')) {const r = document.createElement('div'); r.className = 'notice demo-ribbon'; r.innerHTML = `<div class="ni2">${ic('info', 18)}</div><div><b>Entorno demostrativo</b><p>Los datos y pagos de esta versión son simulados para exposición.</p></div>`; main.prepend(r)} };
+        render();
+
+    </script>
+</body>
+
+</html>
